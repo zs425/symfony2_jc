@@ -1,0 +1,62 @@
+{% extends 'JetChartersPublicBundle::Blog/base.html.twig' %}
+
+{% block body %}
+	<article id="content" class="col-md-8">
+	    {%for blogPostEntity in blogPostEntity %}
+		<section class="blog">
+		    <header>
+			<div class="date">
+			    <strong>{{blogPostEntity.createdOn|date('d')}}</strong>
+			    <span>{{blogPostEntity.createdOn|date('M')}}</span>
+			</div><!-- / date -->
+			<div class="block">
+			    <h2><a href="#">{{blogPostEntity.postTitle}}</a></h2>
+			    <span class="author">Written by <strong><a href="#"> {%if blogPostEntity.user %} {{ blogPostEntity.user.username }} {%else%} - {%endif%}</a></strong></span>
+			</div><!-- / block -->
+			<div class="img">
+			    <img src="{{ asset('bundles/jetcharterspublic/images/img01.jpg') }}" alt="image" />
+			</div><!-- / img -->
+		    </header><!-- / header -->
+		    <div class="area clearfix">
+			<div class="photo">
+			    {% if blogPostEntity.image|length>0 %}
+				<img src="{{path('public_get_image',{'imageId':blogPostEntity.image.id})}}" alt="image" />
+			    {%endif%}
+			    {#<img src="{{ asset('bundles/jetcharterspublic/images/img02.jpg') }}" alt="image" />#}
+			</div><!-- / photo -->
+			<p>{{blogPostEntity.postBody|slice(0, 500)|raw }}</p>
+			<a href="{{path('public_blog_single',{'categorySlug':blogPostEntity.category.categorySlug,'postSlug':blogPostEntity.postSlug})}}" class="btn btn-01">Read More</a>
+		    </div><!-- / area -->
+		    <footer>
+			<ul class="option">
+			    {% if blogPostEntity.comment and blogPostEntity.comment|length>0 %}
+				<li><a href="#" class="ico-comment">{{ blogPostEntity.comment|length }} Comment(s)</a></li>
+			    {%else%}
+				<li><a href="#" class="ico-comment">0 Comment</a></li>
+			    {% endif %}
+			    
+			    <li><a href="{{path('public_blog',{'categorySlug':blogPostEntity.category.categorySlug})}}" class="ico-folder">From The {{ blogPostEntity.category.categoryName }}</a></li>
+			</ul><!-- / option -->
+			
+			{% set sharethisPath = hostName~path('public_blog_single',{'categorySlug':blogPostEntity.category.categorySlug,'postSlug':blogPostEntity.postSlug}) %}
+			
+			<div class="widget">
+			    {#<span class='st_sharethis_large' st_url='{{path('public_blog_single',{'categorySlug':blogPostEntity.category.categorySlug,'postSlug':blogPostEntity.postSlug})}}'  displayText='ShareThis'></span>#}
+			    <span class='st_facebook_large' displayText='Facebook' st_url='{{ sharethisPath }}' st_title="{{blogPostEntity.postTitle}}" ></span>
+			    <span class='st_twitter_large' displayText='Tweet' st_url='{{ sharethisPath }}' st_title="{{blogPostEntity.postTitle}}"></span>
+			    <span class='st_linkedin_large' displayText='LinkedIn' st_url='{{ sharethisPath }}' st_title="{{blogPostEntity.postTitle}}"></span>
+			    <span class='st_pinterest_large' displayText='Pinterest' st_url='{{ sharethisPath }}' st_title="{{blogPostEntity.postTitle}}"></span>
+			    <span class='st_email_large' displayText='Email' st_url='{{ sharethisPath }}' st_title="{{blogPostEntity.postTitle}}"></span>
+			</div><!-- / widget -->
+		    </footer>
+		</section><!-- / blog -->
+	    {%endfor%}
+	</article><!-- / content -->
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript">var switchTo5x=true;</script>
+<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+<script type="text/javascript">stLight.options({publisher: "2b37a49d-22c7-4106-9c26-3ee04779a909", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
+
+{% endblock %}

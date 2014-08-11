@@ -1,0 +1,120 @@
+{% extends 'JetChartersPublicBundle::base.html.twig' %}
+
+{% block content %}
+
+<div class="sign-Up-area">
+	<div class="container">
+		<header class="headline">
+			<h2>Register</h2>
+		</header>
+		{% if (formErrors is defined and formErrors!='') or errors is defined and errors|length>0 %}
+			<div>
+				{% for formError in  formErrors %}
+					<p class="bg-danger">{{ formError }}</p>
+				{% endfor %}
+				
+				{% for error in  errors %}
+					<p class="bg-danger">{{ error.message }}</p>
+				{% endfor %}
+			</div>
+		{% endif %}
+		<div class="main sign-up-back">			
+			{{ form_start(form) }}
+			<h3>Company Information</h3>
+			<div class="row row-padding">
+				<div class="col-md-3 col-sm-4 col-xs-12 padding-zero">{{ form_label(form.companyName) }}*</div>
+				<div class="col-md-5 col-sm-8 col-xs-12 padding-zero">{{ form_widget(form.companyName) }}</div>
+				<div class="col-md-4 col-sm-0 col-xs-12 padding-zero"></div>
+			</div>
+			<div class="row row-padding">	
+				<div class="col-md-3 col-sm-4 col-xs-12 padding-zero">{{ form_label(form.website) }}</div>
+				<div class="col-md-5 col-sm-8 col-xs-12 padding-zero">{{ form_widget(form.website) }}</div>
+				<div class="col-md-4 col-sm-0 col-xs-12 padding-zero"></div>
+			</div>
+			<div class="row row-padding">
+				<div class="col-md-3 col-sm-4 col-xs-12 padding-zero">{{ form_label(form.certificate) }}</div>
+				<div class="col-md-5 col-sm-8 col-xs-12 padding-zero">{{ form_widget(form.certificate) }}</div>
+				<div class="col-md-4 col-sm-0 col-xs-12 padding-zero"></div>
+			</div>
+			<h3>Personal Information</h3>
+			<div class="row row-padding">
+				<div class="col-md-3 col-sm-4 col-xs-12 padding-zero">{{ form_label(form.firstName) }}*</div>
+				<div class="col-md-5 col-sm-8 col-xs-12 padding-zero">{{ form_widget(form.firstName) }}</div>
+				<div class="col-md-4 col-sm-0 col-xs-12 padding-zero"></div>
+			</div>
+			<div class="row row-padding">
+				<div class="col-md-3 col-sm-4 col-xs-12 padding-zero">{{ form_label(form.lastName) }}*</div>
+				<div class="col-md-5 col-sm-8 col-xs-12 padding-zero">{{ form_widget(form.lastName) }}</div>
+				<div class="col-md-4 col-sm-0 col-xs-12 padding-zero"></div>
+			</div>
+			<div class="row row-padding">
+				<div class="col-md-3 col-sm-4 col-xs-12 padding-zero">{{ form_label(form.position) }}</div>
+				<div class="col-md-5 col-sm-8 col-xs-12 padding-zero">{{ form_widget(form.position) }}</div>
+				<div class="col-md-4 col-sm-0 col-xs-12 padding-zero"></div>
+			</div>
+			<div class="row row-padding">
+				<div class="col-md-3 col-sm-4 col-xs-12 padding-zero">{{ form_label(form.address1) }}*</div>
+				<div class="col-md-5 col-sm-8 col-xs-12 padding-zero">{{ form_widget(form.address1) }}</div>
+				<div class="col-md-4 col-sm-0 col-xs-12 padding-zero"></div>
+			</div>
+			<div class="row row-padding">
+				<div class="col-md-3 col-sm-4 col-xs-12 padding-zero">{{ form_label(form.address2) }}</div>
+				<div class="col-md-5 col-sm-8 col-xs-12 padding-zero">{{ form_widget(form.address2) }}</div>
+				<div class="col-md-4 col-sm-0 col-xs-12 padding-zero"></div>
+			</div>
+			<div class="row row-padding">
+				<div class="col-md-3 col-sm-4 col-xs-12 padding-zero">{{ form_label(form.city) }}*</div>
+				<div class="col-md-5 col-sm-8 col-xs-12 padding-zero">{{ form_widget(form.city) }}</div>
+				<div class="col-md-4 col-sm-0 col-xs-12 padding-zero"></div>
+			</div>
+			<div class="row row-padding">
+				<div class="col-md-3 col-sm-4 col-xs-12 padding-zero">{{ form_label(form.state) }}*</div>
+				<div class="col-md-5 col-sm-8 col-xs-12 padding-zero">{{ form_widget(form.state) }}</div>
+				<div class="col-md-4 col-sm-0 col-xs-12 padding-zero"></div>
+			</div>
+			<div class="row row-padding">
+				<div class="col-md-3 col-sm-4 col-xs-12 padding-zero">{{ form_label(form.country) }}*</div>
+				<div class="col-md-5 col-sm-8 col-xs-12 padding-zero">{{ form_widget(form.country) }}</div>
+				<div class="col-md-4 col-sm-0 col-xs-12 padding-zero"></div>
+			</div>
+			<div class="row row-padding">
+				<div class="col-md-3 col-sm-4 col-xs-12 padding-zero">{{ form_label(form.zip) }}*</div>
+				<div class="col-md-5 col-sm-8 col-xs-12 padding-zero">{{ form_widget(form.zip) }}</div>
+				<div class="col-md-4 col-sm-0 col-xs-12 padding-zero"></div>
+			</div>
+			<div class="row row-padding">
+				<div class="col-md-3 col-sm-4 col-xs-12 padding-zero">{{ form_label(form.phone) }}*</div>
+				<div class="col-md-5 col-sm-8 col-xs-12 padding-zero">{{ form_widget(form.phone) }}</div>
+				<div class="col-md-4 col-sm-0 col-xs-12 padding-zero"></div>
+			</div>
+			<h3>Account Information</h3>
+			<div class="row row-padding">
+				<div class="col-md-3 col-sm-4 col-xs-12 padding-zero">{{ form_label(form.email) }}*</div>
+				<div class="col-md-5 col-sm-8 col-xs-12 padding-zero">{{ form_widget(form.email) }}</div>
+				<div class="col-md-4 col-sm-0 col-xs-12 padding-zero"></div>
+			</div>
+			<div class="row row-padding">
+				<div class="col-md-3 col-sm-4 col-xs-12 padding-zero">{{ form_label(form.password.first) }}*</div>
+				<div class="col-md-5 col-sm-8 col-xs-12 padding-zero">{{ form_widget(form.password.first) }}</div>
+				<div class="col-md-4 col-sm-0 col-xs-12 padding-zero"></div>
+			</div>
+			<div class="row row-padding">
+				<div class="col-md-3 col-sm-4 col-xs-12 padding-zero">{{ form_label(form.password.second) }}*</div>
+				<div class="col-md-5 col-sm-8 col-xs-12 padding-zero">{{ form_widget(form.password.second) }}</div>
+				<div class="col-md-4 col-sm-0 col-xs-12 padding-zero"></div>
+			</div>
+			<div class="row row-padding">
+				<div class="col-md-3 col-sm-4 col-xs-12 padding-zero">{{ form_label(form.captcha) }}</div>
+				<div class="col-md-5 col-sm-8 col-xs-12 padding-zero capcha">{{ form_widget(form.captcha) }}</div>
+				<div class="col-md-4 col-sm-0 col-xs-12 padding-zero"></div>
+			</div>
+			<div class="row row-padding">
+				<div class="col-md-3 col-sm-4 col-xs-12 padding-zero">{{ form_label(form.submit) }}</div>
+				<div class="col-md-5 col-sm-8 col-xs-12 padding-zero submit-but">{{ form_widget(form.submit) }}</div>
+				<div class="col-md-4 col-sm-0 col-xs-12 padding-zero"></div>
+			</div>
+			{{ form_end(form) }}
+		</div>
+	</div>
+</div>
+{% endblock %}

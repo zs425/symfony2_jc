@@ -1,0 +1,9 @@
+{% extends 'JetChartersAppBundle:Admin:form_showcase.html.twig' %}
+
+{% block title %}+ Edit Charter OperatorUser{% endblock %}
+
+{% block the_form %}
+	{% form_theme edit_form 'JetChartersAppBundle:Form:cp_form_theme.html.twig' %}
+	{{ form(edit_form) }}
+	{{ form(delete_form) }}
+{% endblock %}

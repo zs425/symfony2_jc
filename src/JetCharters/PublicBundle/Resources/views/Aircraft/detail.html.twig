@@ -1,0 +1,169 @@
+{% extends 'JetChartersPublicBundle::base.html.twig' %}
+
+{% block title %}{{ aircraft.name }} - {{ aircraft.charteraircraft|length }} Available Aircraft for Charter | JetCharters.com{% endblock %}
+
+{% block content %}
+    <section class="intro-01 parallax-bg">
+        <div class="container">
+            <div class="airplane-details row ie-fix">
+                <header class="headline">
+                    <h2>{{ aircraft.name }}</h2>
+                </header>
+                <div class="info">
+                    <div class="img">
+                        {% if aircraft.images|length > 0 %}
+                        <img src="{{ aircraft.images[0].webpath }}" alt="{{ aircraft.name }}" style="width: 400px;">
+                        <span class="mask-01"><a href="{{ aircraft.images[0].webpath }}"
+                                                 data-toggle="lightbox"
+                                                 data-parent=".available-aircrafts"
+                                                 data-gallery="multiimages"
+                                                 data-title="{{ aircraft.name }}"
+                                                 data-footer="">&nbsp;</a></span>
+                        {% else %}
+                            <img src="{{ asset('bundles/jetcharterspublic/images/image-not-found.jpg') }}" alt="" width="400" height="225">
+                        {% endif %}
+                    </div><!-- img -->
+                    <p>{{ aircraft.description }}</p>
+                </div><!-- info -->
+                <ul class="available-list">
+                    <li><img src="{{ asset('bundles/jetcharterspublic/images/ico-17.png') }}" alt="image">Seats {{ aircraft.numberofseats }}</li>
+                    <li><img src="{{ asset('bundles/jetcharterspublic/images/ico-18.png') }}" alt="image">Available</li>
+                    <li><img src="{{ asset('bundles/jetcharterspublic/images/ico-19.png') }}" alt="image">{{ aircraft.maxairspeed }}kph</li>
+                    <li><img src="{{ asset('bundles/jetcharterspublic/images/ico-20.png') }}" alt="image">{{ aircraft.maxrange }} sm</li>
+                    <li><a href="#" data-toggle="modal" data-target="#video"><img src="{{ asset('bundles/jetcharterspublic/images/ico-video-001.png') }}" alt="image">Watch Video</a></li>
+                </ul>
+            </div><!-- airplane-details -->
+        </div>
+        <div class="aircraft-types-form small-types">
+            <div class="container">
+                <form action="#">
+                    <div class="cel">
+                        <input class="form-control" type="text" placeholder="City/Airport Code" />
+                    </div>
+                    <div class="cel">
+                        <select title="Search Radius" class="form-control">
+                            <option value="1">Search Radius 1</option>
+                            <option value="2">Search Radius 2</option>
+                            <option value="3">Search Radius 3</option>
+                            <option value="4">Search Radius 4</option>
+                        </select>
+                    </div>
+                    <div class="btn-holder">
+                        <button class="btn btn-info">Search</button>
+                    </div>
+                </form>
+                <button class="btn btn-info btn-mobile" data-toggle="modal" data-target="#aircraft-category-small">Aircraft By Radius</button>
+            </div>
+        </div><!-- aircraft-types-form -->
+    </section><!-- intro-01 -->
+    <section class="map-holder w1">
+        <div class="w2">
+            <div class="w3 full-width-map">
+                <div id="map-canvas"></div>
+            </div>
+        </div>
+    </section><!-- map-holder -->
+    <section class="available-aircrafts">
+        <div class="container">
+            <h2>{{ aircraft.name }} Available Aircraft For Charter</h2>
+            {% for charter in charters %}
+            <div class="info-aircraft info-aircraft-inner">
+                <div class="img-holder">
+                    {% if charter.images|length > 0 %}
+                    <img src="{{ asset(charter.images.first.webpath) }}" alt="" width="292" height="196" >
+						<span class="mask-01">
+							<a href="{{ asset(charter.images.first.webpath) }}" data-toggle="lightbox" data-parent=".available-aircrafts" data-gallery="multiimages" data-title="{{ charter.name }}" data-footer="Get Quote: 1-800-538-6070">gallery</a>
+						</span>
+                    {% else %}
+                        <img src="{{ asset('bundles/jetcharterspublic/images/image-not-found.jpg') }}" alt="" width="292" height="196" >
+                    {% endif %}
+                </div>
+                <div class="holder">
+                    <header class="heading">
+                        <h3><a href="{{ path('public_charter_aircraft_detail', { 'operator': charter.operator.slug, 'aircraft': charter.model.slug, 'tail': charter.tailnumber })}}">{{ charter.model.name }}</a></h3>
+                        <a data-toggle="modal" data-target="#add-favorite" href="#" class="add-favorite"><span>Add</span> Favorite<strong> !</strong></a>
+                    </header>
+                    <div class="frame">
+                        <ul class="list-info list-info-big">
+                            <li>
+                                <img src="{{ asset('bundles/jetcharterspublic/images/ico-002.png') }}" alt="" >
+                                <ul>
+                                    <li>Tail # <span>{{ charter.tailnumber }}</span></li>
+                                </ul>
+                            </li>
+                            {% if charter.location is defined and charter.location.closestcitydistancemiles is defined %}<li><a href="#" class="tooltip-link" data-placement="top" title="{{ charter.location.closestcitydistancemiles }} Miles From {{ charter.location.closestcity }}"><img src="{{ asset('bundles/jetcharterspublic/images/ico-001.png') }}" alt="" ><span>{{ charter.location.airportcode }}</span></a></li>{% endif %}
+                            {% if charter.company is defined %} <li><a href="{{ path('public_operator_detail', { slug: charter.company.slug }) }}" class="tooltip-link" data-placement="top" title="{{ charter.company.name }}"><img src="{{ asset('bundles/jetcharterspublic/images/img-001.png') }}" alt="" ><span>{{ charter.company.name }}</span></a></li>{% endif %}
+                            <li><img src="{{ asset('bundles/jetcharterspublic/images/ico-dollar.png') }}" alt="" ><strong>{% if charter.hourlyrate > 0 %}${{ charter.hourlyrate }}/hr{% else %}Inquire{% endif %}</strong></li>
+                        </ul><!-- / list-info -->
+                        {% if charter.company is defined  and charter.company.showarguslogo %}
+                        <img class="custom-logo" src="{{ asset('bundles/jetcharterspublic/images/ico-21.png') }}" alt="image">
+                        {% endif %}
+                        <button class="btn btn-info">Get Quote</button>
+                    </div>
+                </div>
+            </div><!-- / info-aircraft -->
+            {% endfor %}
+        </div>
+    </section><!-- available-aircrafts -->
+    <section class="aircraft-area aircraft-area-inner" id="aircraft">
+        <div class="container">
+            <header class="headline">
+                <h2>Similar Aircrafts</h2>
+            </header>
+            <div class="aircraft-slider" id="carousel">
+                <ul class="slides">
+                    {% for aircraft in related %}
+                    <li>
+                        {% if aircraft.images|length > 0 %}
+                            <img src="{{ asset('uploads/images/' ~ aircraft.images.first.webpath) }}" alt="{{ aircraft.name }}" width="293" height="196">
+                        {% else %}
+                            <img src="{{ asset('bundles/jetcharterspublic/images/image-not-found.jpg') }}" alt="{{ aircraft.name }}" width="293" height="196">
+                        {% endif %}
+                        <div class="descr">
+                            <h3>{{ aircraft.name }}</h3>
+                            <ul>
+                                <li>{{ aircraft.type.name }}</li>
+                                <li>Seats: {{ aircraft.numberofseats }}</li>
+                                {#<li>KHPN</li>#}
+                            </ul>
+                            <a class="btn btn-primary" href="{{ path('public_aircraft_detail', { slug: aircraft.slug }) }}">View More</a>
+                        </div><!-- descr -->
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div><!-- aircraft-slider -->
+        </div>
+    </section><!-- aircraft-area -->
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.full-width-map').width($(document).width());
+            var mapOptions = {
+                center: new google.maps.LatLng(38.822591, -101.601563),
+                zoom: 4,
+                scrollwheel: false
+            };
+
+            var map = new google.maps.Map(document.getElementById("map-canvas"),
+                    mapOptions);
+
+            var latlngbounds = new google.maps.LatLngBounds();
+
+            // setup the charter markers
+            {% for charter in charters %}
+            var ltlg = new google.maps.LatLng(dms2deg('{{ charter.location.latitude }}'), dms2deg('{{ charter.location.longitude }}'));
+            var marker = new google.maps.Marker({
+                position: ltlg,
+                title: '{{ charter.name }}'
+            });
+            latlngbounds.extend(ltlg);
+            marker.setMap(map);
+            {% endfor %}
+
+            map.setCenter(latlngbounds.getCenter());
+            map.fitBounds(latlngbounds);
+        });
+    </script>
+{% endblock %}

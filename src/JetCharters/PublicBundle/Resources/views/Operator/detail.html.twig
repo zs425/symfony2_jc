@@ -1,0 +1,244 @@
+{% extends 'JetChartersPublicBundle::base.html.twig' %}
+
+{% block content %}
+    <section class="operator-details parallax-bg">
+        <div class="container information ie-fix">
+            <header class="headline">
+                <h2>{{ operator.name }}</h2>
+                <a data-toggle="modal" data-target="#add-favorite" href="#" class="add-favorite"><span>Add</span> Favorite<strong>!</strong></a>
+            </header>
+            <div class="block-info">
+                <div class="img">
+                    <img src="{{ asset(operator.logowebpath) }}" alt="{{ operator.contactname }} Logo" width="246" >
+                </div>
+                <ul class="info-list">
+                    <li><img src="{{ asset('bundles/jetcharterspublic/images/img-001.png') }}" alt="" >{{ operator.contactname }}</li>
+                    <li><img src="{{ asset('bundles/jetcharterspublic/images/img-002.png') }}" alt="" ><a href="http://{{ operator.website }}">Visit Website</a></li>
+                    <li><img src="{{ asset('bundles/jetcharterspublic/images/img-003.png') }}" alt="" ><a href="callto:{{ operator.contactphone }}">{{ operator.contactPhoneNumber }}</a></li>
+                    <li><img src="{{ asset('bundles/jetcharterspublic/images/img-004.png') }}" alt="" >Certificate #<span>{{ operator.certificatenumber }}</span></li>
+                </ul>
+                <div class="location">
+                    <address>
+                        <span>{{ operator.address1 }}</span>
+                        <span>{{ operator.city }}, {{ operator.state }} {{ operator.zipcode }}</span>
+                        <span>{{ operator.country }}</span>
+                    </address>
+                    <button class="btn btn-info">Get Quote</button>
+                </div>
+            </div><!-- block-info -->
+        </div><!-- information -->
+        <div class="container info-line ie-fix">
+            <ul class="links">
+                {% if operator.specsheet|length > 0 %}
+                <li><a class="download" href="#"><span>Download</span> Fleet Sheet</a></li>
+                {% endif %}
+                {% if operator.videoname|length > 0 %}
+                <li><a class="video" data-target="#video') }}" data-toggle="modal" href="#">Watch Video</a></li>
+                {% endif %}
+            </ul><!-- / links -->
+            <ul class="social">
+                {% if operator.facebookurl|length > 0 %}
+                <li><a href="{{ operator.facebookurl }}" target="_blank" class="facebook">facebook</a></li>
+                {% endif %}
+                {% if operator.linkedinurl|length > 0 %}
+                <li><a href="{{ operator.linkedinurl }}" target="_blank" class="linkedin">linkedin</a></li>
+                {% endif %}
+                {% if operator.twitterurl|length > 0 %}
+                <li><a href="{{ operator.twitterurl }}" target="_blank" class="twitter">twitter</a></li>
+                {% endif %}
+                {% if operator.googleurl|length > 0 %}
+                <li><a href="{{ operator.googleurl }}" target="_blank" class="google">google+</a></li>
+                {% endif %}
+                {% if operator.youtubeurl|length > 0 %}
+                <li><a href="{{ operator.youtubeurl }}" target="_blank" class="youtube">youtube</a></li>
+                {% endif %}
+            </ul><!-- / social -->
+        </div><!-- / info-line -->
+    </section><!-- search-category -->
+    <section class="safety-ratings">
+        <div class="container">
+            <h2>Safety Ratings</h2>
+            <ul class="list">
+                {% if operator.showarguslogo %}
+                <li>
+                    <a href="#"><img src="{{ asset('bundles/jetcharterspublic/images/img-safety-ratings-01.png') }}" alt="" ></a>
+                </li>
+                {% endif %}
+                {% if operator.showwyvernlogo %}
+                <li>
+                    <a href="#"><img src="{{ asset('bundles/jetcharterspublic/images/img-safety-ratings-02.png') }}" alt="" ></a>
+                </li>
+                {% endif %}
+                {% if operator.showisbaologo %}
+                <li>
+                    <a href="#"><img src="{{ asset('bundles/jetcharterspublic/images/img-safety-ratings-03.png') }}" alt="" ></a>
+                </li>
+                {% endif %}
+                {% if operator.showfaalogo %}
+                <li>
+                    <a href="#"><img src="{{ asset('bundles/jetcharterspublic/images/img-safety-ratings-04.png') }}" alt="" ></a>
+                </li>
+                {% endif %}
+                {% if operator.showacsflogo %}
+                <li>
+                    <a href="#"><img src="{{ asset('bundles/jetcharterspublic/images/img-safety-ratings-05.png') }}" alt="" ></a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </section><!-- search-category -->
+    <section class="operator-info">
+        <div class="container">
+            <h2>About {{ operator.name }}</h2>
+            <div class="text-holder">
+                <p>{{ operator.about }}</p>
+            </div>
+        </div>
+    </section><!-- / operator-info -->
+    <section class="map-holder w1">
+        <div class="w2">
+            <div class="w3 full-width-map">
+                <div id="map-canvas"></div>
+            </div>
+        </div>
+    </section><!-- map-holder -->
+    <section class="available-aircrafts">
+        <div class="container">
+            <h2>Available Aircraft For Charter</h2>
+            {% for charter in operator.aircraft %}
+            <div class="info-aircraft">
+                <div class="img-holder">
+                    {% if charter.images|length > 0 %}
+                        <img src="{{ asset(charter.images.first.webpath) }}" alt="" width="292" height="196" >
+                        <span class="mask-01">
+							<a href="{{ asset(charter.images.first.webpath) }}" data-toggle="lightbox" data-parent=".available-aircrafts" data-gallery="multiimages" data-title="{{ charter.name }}" data-footer="Get Quote: {{ charter.operator.contactphone }}">gallery</a>
+						</span>
+                    {% else %}
+                        <img src="{{ asset('bundles/jetcharterspublic/images/image-not-found.jpg') }}" alt="" width="292" height="196" >
+                    {% endif %}
+                </div>
+                <div class="holder">
+                    <header class="heading">
+                        <h3>{{ charter.name }}</h3>
+                        <a data-toggle="modal" data-target="#add-favorite" href="#" class="add-favorite selected"><span>Add</span> Favorite<strong> !</strong></a>
+                    </header>
+                    <div class="frame">
+                        <ul class="list-info">
+                            <li>
+                                <img src="{{ asset('bundles/jetcharterspublic/images/ico-002.png') }}" alt="" >
+                                <ul>
+                                    <li>{{ charter.type }}</li>
+                                    <li>Seats {{ charter.seats }}</li>
+                                    {% if charter.hideTailNumber == false %}
+                                    <li>Tail # <span>{{ charter.tailnumber }}</span></li>
+                                    {% endif %}
+                                </ul>
+                            </li>
+                            <li><a href="#" class="tooltip-link" data-placement="top" title="{{ charter.location.closestcitydistancemiles }} Miles From {{ charter.location.closestcity }}"><img src="{{ asset('bundles/jetcharterspublic/images/ico-001.png') }}" alt="" ><span>{{ charter.location.faacode }}</span></a></li>
+                            <li><img src="{{ asset('bundles/jetcharterspublic/images/ico-dollar.png') }}" alt="" ><strong>${{ charter.hourlyrate }}/hr</strong></li>
+                            <li>
+                                <div class="widget-holder">
+                                </div>
+                            </li>
+                        </ul><!-- / list-info -->
+                        <button class="btn btn-info">Get Quote</button>
+                    </div>
+                </div>
+            </div><!-- / info-aircraft -->
+            {% endfor %}
+        </div>
+    </section><!-- / available-aircraft -->
+    {% if operator.emptylegs|length > 0 %}
+    <section class="available-flights">
+        <div class="container">
+            <h2>Available Empty Leg Flights</h2>
+            <ul class="list">
+                {% for leg in operator.emptylegs %}
+                <li>
+                    <ul>
+                        <li class="cell-01">
+                            <img src="{{ asset('bundles/jetcharterspublic/images/ico-001.png') }}" alt="" >
+                            <strong>{{ leg.origin.city|lower|capitalize }}, {{ leg.origin.state|lower|capitalize }}</strong> &raquo; <strong>{{ leg.destination.city|lower|capitalize }}, {{ leg.destination.state|lower|capitalize }}</strong>
+                        </li>
+                        <li class="cell-02">
+                            <img src="{{ asset('bundles/jetcharterspublic/images/img-005.png') }}" alt="" >
+                            <span>{{ leg.fromdate|date("m/d/Y") }}</span> &raquo; <span>{{ leg.todate|date("m/d/Y") }}</span>
+                        </li>
+                        <li class="cell-03">
+                            <img src="{{ asset('bundles/jetcharterspublic/images/ico-002.png') }}" alt="" >
+                            {{ leg.aircraft.type.name }}
+                        </li>
+                        <li class="cell-04"><button class="btn btn-info">Get Quote</button></li>
+                    </ul>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </section><!-- / available-flights -->
+    {% endif %}
+    
+    {% if similartOperators|length>0 %}
+    <section class="similar-operators parallax-bg-01">
+        <div class="container">
+            <h2>Similar Operators</h2>
+            <div class="operators-carousel" id="carousel-01">
+		<ul class="slides">
+		{% for similartOperator in similartOperators %}
+		    <li>
+                        <a href="{{ path('public_operator_detail', { 'slug' : similartOperator.slug }) }}" class="holder"><div class="wrap"><img src="{{ asset('bundles/jetcharterspublic/images/img-operators-001.png') }}" alt="{{ similartOperator.name }}"></div></a>
+                    </li>
+		{% endfor %}
+		    {#<li>
+                        <a href="#" class="holder"><div class="wrap"><img src="{{ asset('bundles/jetcharterspublic/images/img-operators-001.png') }}" alt="image"></div></a>
+                    </li><li>
+                        <a href="#" class="holder"><div class="wrap"><img src="{{ asset('bundles/jetcharterspublic/images/img-operators-002.png') }}" alt="image"></div></a>
+                    </li><li>
+                        <a href="#" class="holder"><div class="wrap"><img src="{{ asset('bundles/jetcharterspublic/images/img-operators-003.png') }}" alt="image"></div></a>
+                    </li><li>
+                        <a href="#" class="holder"><div class="wrap"><img src="{{ asset('bundles/jetcharterspublic/images/img-operators-004.png') }}" alt="image"></div></a>
+                    </li><li>
+                        <a href="#" class="holder"><div class="wrap"><img src="{{ asset('bundles/jetcharterspublic/images/img-operators-005.png') }}" alt="image"></div></a>
+                    </li><li>
+                        <a href="#" class="holder"><div class="wrap"><img src="{{ asset('bundles/jetcharterspublic/images/img-operators-001.png') }}" alt="image"></div></a>
+                    </li><li>
+                        <a href="#" class="holder"><div class="wrap"><img src="{{ asset('bundles/jetcharterspublic/images/img-operators-002.png') }}" alt="image"></div></a>
+                    </li>#}
+		</ul>
+            </div><!-- aircraft-slider -->
+        </div>
+    </section>
+    {% endif %}
+		
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+	$(document).ready(function () {
+            $('.full-width-map').width($(document).width());
+            var mapOptions = {
+                center: new google.maps.LatLng(38.822591, -101.601563),
+                zoom: 12,
+                scrollwheel: false
+            };
+
+            var map = new google.maps.Map(document.getElementById("map-canvas"),
+                    mapOptions);
+
+            var latlngbounds = new google.maps.LatLngBounds();
+
+            // setup the charter markers
+            {% for charter in operator.aircraft %}
+            var ltlg = new google.maps.LatLng(('{{ charter.location.nlatitude }}'), ('{{ charter.location.nlongitude }}'));
+            var marker = new google.maps.Marker({
+                position: ltlg,
+                title: '{{ charter.name }}'
+            });
+            latlngbounds.extend(ltlg);
+            marker.setMap(map);
+            {% endfor %}
+
+            map.setCenter(latlngbounds.getCenter());
+            map.fitBounds(latlngbounds);
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JetCharters Control Panel</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- bootstrap -->
+    <link href="{{ asset('bundles/jetchartersapp/cp_theme/css/bootstrap/bootstrap.css')}}" rel="stylesheet" />
+    <link href="{{ asset('bundles/jetchartersapp/cp_theme/css/bootstrap/bootstrap-responsive.css')}}" rel="stylesheet" />
+    <link href="{{ asset('bundles/jetchartersapp/cp_theme/css/bootstrap/bootstrap-overrides.css')}}" type="text/css" rel="stylesheet" />
+
+    <!-- libraries -->
+    <link href="{{ asset('bundles/jetchartersapp/cp_theme/css/lib/jquery-ui-1.10.2.custom.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('bundles/jetchartersapp/cp_theme/css/lib/font-awesome.css')}}" type="text/css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('bundles/jetchartersapp/cp_theme/css/select2.css') }}" type="text/css" media="screen" />
+
+    <!-- global styles -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/jetchartersapp/cp_theme/css/compiled/layout.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/jetchartersapp/cp_theme/css/compiled/elements.css')}}" />
+
+    <!-- page specific styles -->
+    {% block page_styles %}{% endblock %}
+
+    <!-- open sans font -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css' />
+
+    <!-- lato font -->
+    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css' />
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    {% block javascripts %}
+        {% javascripts
+            '@JetChartersAppBundle/Resources/public/js/jquery.min.js'
+            '@JetChartersAppBundle/Resources/public/cp_theme/js/global/bootstrap.min.js'
+            '@JetChartersAppBundle/Resources/public/cp_theme/js/global/jquery-ui-1.10.2.custom.min.js'
+            '@JetChartersAppBundle/Resources/public/cp_theme/js/global/theme.js'
+        %}
+            <script type="text/javascript" src="{{ asset_url }}"></script>
+	{% endjavascripts %}
+    {% endblock %}
+
+    {% block additionalJavascripts %}{% endblock %}
+
+
+    {% block stylesheetsDateTimeWidget %}
+	    <link rel="stylesheet" type="text/css" href="http://jonthornton.github.io/jquery-timepicker/jquery.timepicker.css" />
+	    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/jetchartersapp/jonthornton-jquery-datepair-4f1f3bc/lib/bootstrap-datepicker.css')}}" />
+    {% endblock %}
+
+    {% block javascriptsDateTimeWidget %}
+
+	<script src="http://jonthornton.github.io/jquery-timepicker/jquery.timepicker.js"></script>
+	<script src="{{ asset('bundles/jetchartersapp/jonthornton-jquery-datepair-4f1f3bc/lib/bootstrap-datepicker.js')}}"></script>
+	<script src="{{ asset('bundles/jetchartersapp/jonthornton-jquery-datepair-4f1f3bc/lib/pikaday.js')}}"></script>
+	<script src="{{ asset('bundles/jetchartersapp/jonthornton-jquery-datepair-4f1f3bc/jquery.datepair.js')}}"></script>
+	<script type="text/javascript">
+	    $( document ).ready(function() {
+		    if (document.getElementById("datetimecal")) {
+			    $('#datetimecal .time').timepicker({
+				'showDuration': false,
+				'timeFormat': 'g:ia'
+			    });
+			    $('#datetimecal .date').datepicker({
+				'format': 'mm/dd/yyyy',
+				'autoclose': true
+			    });
+			    $("#datetimecal .date").bind("change paste keyup", function() {
+				var id = this.id;
+				var timeFieldId = id.replace("_caldate", "_caltime");
+				var OrignalDateFieldId = id.replace("_caldate", "");
+				$('#'+OrignalDateFieldId).val(this.value+" "+$('#'+timeFieldId).val());
+			    });
+			    $("#datetimecal .time").bind("change paste keyup", function() {
+				var id = this.id;
+				var dateFieldId = id.replace("_caltime", "_caldate");
+				var OrignalDateFieldId = id.replace("_caltime", "");
+				$('#'+OrignalDateFieldId).val($('#'+dateFieldId).val()+" "+$("#"+this.id).val());
+			    });
+			    $('#paired').datepair();
+		      }
+
+	    });
+	</script>
+    {% endblock %}
+</head>
+<body>
+
+<!-- navbar -->
+    {% block top_navbar %}{% endblock %}
+<!-- end navbar -->
+
+<!-- sidebar -->
+    {% block sidebar %}{% endblock %}
+<!-- end sidebar -->
+
+	<!-- main container -->
+    <div class="content">
+	<div class="container-fluid">
+		{% for flashMessage in app.session.flashbag.get('success') %}
+		    <div class="alert alert-success" style="margin-top:15px;">
+			<i class="icon-ok-sign"></i>{{ flashMessage }}
+		    </div>
+		{% endfor %}
+		{% for flashMessage in app.session.flashbag.get('error') %}
+		    <div class="alert alert-error" style="margin-top:15px;">
+			<i class="icon-remove-sign"></i>{{ flashMessage }}
+		    </div>
+		{% endfor %}
+	</div>
+        {% block content %}{% endblock %}
+    </div>
+
+    <script src="{{ asset('bundles/jetchartersapp/cp_theme/js/global/nav.js')}}" type="text/javascript"></script>
+
+</body>
+</html>

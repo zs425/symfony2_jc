@@ -1,0 +1,72 @@
+{% extends 'JetChartersAppBundle:Operator:base.html.twig' %}
+
+{% block content -%}
+    <h1>CharterAircraftEmptyLeg</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Origin</th>
+                <td>{{ entity.origin }}</td>
+            </tr>
+            <tr>
+                <th>Destination</th>
+                <td>{{ entity.destination }}</td>
+            </tr>
+            <tr>
+                <th>Fromdate</th>
+                <td>{{ entity.fromDate|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Todate</th>
+                <td>{{ entity.toDate|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Aircraftclass</th>
+                <td>{{ entity.aircraftClass }}</td>
+            </tr>
+            <tr>
+                <th>Aircraftname</th>
+                <td>{{ entity.aircraftName }}</td>
+            </tr>
+            <tr>
+                <th>Contact</th>
+                <td>{{ entity.contact }}</td>
+            </tr>
+            <tr>
+                <th>OperatorUser</th>
+                <td>{{ entity.operator }}</td>
+            </tr>
+            <tr>
+                <th>Phone</th>
+                <td>{{ entity.phone }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ entity.email }}</td>
+            </tr>
+            <tr>
+                <th>Datecreated</th>
+                <td>{{ entity.dateCreated|date('Y-m-d H:i:s') }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('operator_emptylegs') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('operator_emptylegs_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

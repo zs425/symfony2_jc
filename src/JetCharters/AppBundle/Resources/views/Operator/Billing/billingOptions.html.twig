@@ -1,0 +1,9 @@
+{% extends 'JetChartersAppBundle:Operator:form_showcase.html.twig' %}
+
+{% block title %}+ Billing Options{% endblock %}
+
+{% block the_form %}
+	{% form_theme edit_form 'JetChartersAppBundle:Form:cp_form_theme.html.twig' %}
+
+    {{ form(edit_form) }}
+{% endblock %}

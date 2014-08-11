@@ -1,0 +1,13 @@
+{# {% extends 'JetChartersAppBundle:Operator:form_showcase.html.twig' %}
+
+{% block title %}+ Operator Logo{% endblock %}
+
+
+{% block the_form %} #}
+{% if entity.logo %}
+<img width="200" height="200" src="{{ asset('images/company_logos/' ~ entity.logo) }}" alt="{{ entity.name }}" />
+<hr>
+{% endif %}
+	{% form_theme logo_form 'JetChartersAppBundle:Form:cp_form_theme.html.twig' %}
+	{{ form(logo_form) }}
+{# {% endblock %} #}

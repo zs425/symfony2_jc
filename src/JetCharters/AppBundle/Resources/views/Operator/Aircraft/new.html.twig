@@ -1,0 +1,46 @@
+{% extends 'JetChartersAppBundle:Operator:form_showcase.html.twig' %}
+
+{% block title %}+ Add Aircraft{% endblock %}
+
+
+{% block the_form %}
+{# 	{% form_theme form 'JetChartersAppBundle:Form:cp_form_theme.html.twig' %}
+	{{ form_start(form) }}
+
+    {{ form_row(form.status) }}
+    {{ form_row(form.name) }}
+	{{ form_row(form.type) }}
+	{{ form_row(form.location) }}
+	{{ form_row(form.tailNumber) }}
+	{{ form_row(form.hideTailNumber) }}
+    {{ form_row(form.seats) }}
+    {{ form_row(form.hourlyRate) }}
+    {{ form_row(form.airAmbulance) }}
+    {{ form_row(form.video) }}
+
+{{ form_end(form) }} #}
+
+
+{% endblock %}
+
+{% block aside %}
+{# <h5>Vzaar Video Status: {{vzaar_status}}</h5>
+	{{ video_embed | raw}}
+	<hr>
+<form action="/file-upload" class="dropzone square">
+  <div class="fallback">
+    <input name="file" type="file" multiple />
+  </div>
+</form>
+ #}
+{# {{ form_start(form) }}
+    <div class="row_fluid">
+        <div class="span12 column images_collection" data-prototype="{{ form_widget(form.images.vars.prototype)|e }}">
+            {% for image in form.images %}
+                <div class="image_upload_form">{{ form_row(image.image) }}</div>
+            {% endfor %}
+        </div>
+    </div>
+{{ form_end(form) }} #}
+
+{% endblock %}

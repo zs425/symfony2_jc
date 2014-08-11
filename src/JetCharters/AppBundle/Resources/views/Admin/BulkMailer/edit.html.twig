@@ -1,0 +1,16 @@
+{% extends 'JetChartersAppBundle:Admin:form_showcase.html.twig' %}
+
+{% block title %}+ Edit Bulk Mailer{% endblock %}
+
+
+{% block the_form %}
+	{% form_theme edit_form 'JetChartersAppBundle:Form:cp_form_theme.html.twig' %}
+
+	{{ form(edit_form) }}
+	{{ form(delete_form) }}
+{% endblock %}
+
+{% block aside %}
+	<b style="font-weight:bold">Current Header Image:</b><br>
+	<img src="{{ vich_uploader_asset(entity, 'headerImage') }}" alt="" />
+{% endblock %}

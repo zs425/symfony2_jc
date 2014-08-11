@@ -1,0 +1,155 @@
+{% extends 'JetChartersPublicBundle::base.html.twig' %}
+
+{% block content %}
+<section class="intro-01 parallax-bg">
+    <header class="container">
+        <img class=" ico-plane" src="{{ asset('bundles/jetcharterspublic/images/ico-plane.png') }}" alt="image">
+        <h1>Aircraft By Type</h1>
+    </header>
+    <div class="aircraft-types-form">
+        <div class="container">
+            <form action="#">
+                <div class="cel">
+                    <select title="Aircraft By Type" class="form-control" name ="aircraft_type_private_jets" id="aircraft_type_private_jets">
+			{% for aircraftType in aircraftTypes %}
+			    <option value="{{aircraftType.id}}">{{ aircraftType.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="cel">
+                    <input class="form-control" type="text" placeholder="City/Airport Code" name ="city_airport_code_private_jets" id="city_airport_code_private_jets" />
+                </div>
+                <div class="cel">
+                    <select title="Search Radius" class="form-control" name ="radius_private_jets" id="radius_private_jets">
+			<option value="50">50 mi</option>
+			<option value="100">100 mi</option>
+			<option value="250">250 mi</option>
+			<option value="500">500 mi</option>
+                    </select>
+                </div>
+                <div class="btn-holder">
+                    <button class="btn btn-info">Search</button>
+                </div>
+            </form>
+            <button class="btn btn-info btn-mobile" data-toggle="modal" data-target="#aircraft-category">Aircraft By Category</button>
+        </div>
+    </div><!-- aircraft-types-form -->
+</section><!-- intro-01 -->
+<section class="aircraft-type-list">
+    <div class="container">
+        <ul>
+            <li>
+                <a name="air-taxi"></a>
+                <div class="img">
+                    <img src="{{ asset('bundles/jetcharterspublic/images/img-01.png') }}" alt="image">
+                </div>
+                <h3>Air Taxi</h3>
+                <ul class="models">
+		    {% if models|length>0 and models['airliner'] is defined %}
+			{% for model in models['airliner'] %}
+			<li><a href="{{ path('public_aircraft_detail', { slug: model.slug }) }}">{{ model.name }}</a></li>
+			{% endfor %}
+                    {% endif %}
+                </ul>
+            </li><li>
+                <div class="img">
+                    <img src="{{ asset('bundles/jetcharterspublic/images/img-02.png') }}" alt="image">
+                </div>
+                <h3><a href="#">Turbo-Prop</a></h3>
+                <ul class="models">
+		    {% if models|length>0 and models['turbo-prop'] is defined %}
+			{% for model in models['turbo-prop'] %}
+			    <li><a href="{{ path('public_aircraft_detail', { slug: model.slug }) }}">{{ model.name }}</a></li>
+			{% endfor %}
+                    {% endif %}
+                </ul>
+            </li><li>
+                <a name="light"></a>
+                <div class="img">
+                    <img src="{{ asset('bundles/jetcharterspublic/images/img-03.png') }}" alt="image">
+                </div>
+                <h3><a href="#">Light Jets</a></h3>
+                <div class="holder">
+                    <ul class="models">
+			{% if models|length>0 and models['light'] is defined %}
+			    {% for model in models['light'] %}
+				<li><a href="{{ path('public_aircraft_detail', { slug: model.slug }) }}">{{ model.name }}</a></li>
+			    {% endfor %}
+                        {% endif %}
+                    </ul>
+                </div>
+            </li><li>
+                <a name="mid-size"></a>
+                <div class="img">
+                    <img src="{{ asset('bundles/jetcharterspublic/images/img-09.png') }}" alt="image">
+                </div>
+                <h3><a href="#">Medium Jets</a></h3>
+                <ul class="models">
+		    {% if models|length>0 and models['mid-size'] is defined %}
+			{% for model in models['mid-size'] %}
+			    <li><a href="{{ path('public_aircraft_detail', { slug: model.slug }) }}">{{ model.name }}</a></li>
+			{% endfor %}
+                    {% endif%}
+                </ul>
+            </li><li>
+                <a name="super-mid"></a>
+                <div class="img">
+                    <img src="{{ asset('bundles/jetcharterspublic/images/img-07.png') }}" alt="image">
+                </div>
+                <h3><a href="#">Super-Mid Jets</a></h3>
+                <ul class="models">
+		    {% if models|length>0 and models['super-mid'] is defined %}
+			{% for model in models['super-mid'] %}
+			    <li><a href="{{ path('public_aircraft_detail', { slug: model.slug }) }}">{{ model.name }}</a></li>
+			{% endfor %}
+		    {% endif%}
+		</ul>
+            </li><li>
+                <a name="heavy"></a>
+                <div class="img">
+                    <img src="{{ asset('bundles/jetcharterspublic/images/img-08.png') }}" alt="image">
+                </div>
+                <h3><a href="#">Large Jets</a></h3>
+                <div class="holder">
+                    <ul class="models">
+			{% if models|length>0 and models['heavy'] is defined %}
+			    {% for model in models['heavy'] %}
+				<li><a href="{{ path('public_aircraft_detail', { slug: model.slug }) }}">{{ model.name }}</a></li>
+			    {% endfor %}
+			{% endif %}
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </div>
+</section><!-- aircraft-type-list -->
+{% endblock %}
+{% block javascripts %}
+<script>
+    //For private-jet page
+    $(document).ready(function() {
+	$('#city_airport_code_private_jets').select2({
+	    minimumInputLength: 2,
+	    placeholder: 'Search',
+	    ajax: {
+		url: "{{ path('public_aircraft_search_airport') }}",
+		dataType: 'json',
+		type: "POST",
+		data: function (term, page) {
+		    return {
+			term: term, // search term
+			page_limit: 10,
+			apikey: "ju6z9mjyajq2djue3gbvv26t" // please do not use so this example keeps working
+		    };
+		},
+		results: function (data, page) { // parse the results into the format expected by Select2.
+		    // since we are using custom formatting functions we do not need to alter remote JSON data
+		    return {results: data};
+		    //return { results: [ {id:'CA', text:'California'}, {id:'CO', text: 'Colarado' }]}
+		}
+	    }
+	});
+    });
+    
+</script>
+{% endblock %}

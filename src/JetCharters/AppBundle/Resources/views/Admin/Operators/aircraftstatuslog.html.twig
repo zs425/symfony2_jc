@@ -1,0 +1,45 @@
+{% extends 'JetChartersAppBundle:Admin:base.html.twig' %}
+
+{% block content -%}
+<div class="container-fluid">
+    <div id="pad-wrapper" class="form-page">
+        <div class="row-fluid form-wrapper">
+            <div class="row-fluid head">
+                <div class="span12">
+                    <h4 style="margin:-20px 0 20px 0;"> + Aircraft Status Log</h4>
+                </div>
+            </div>
+
+            {% if entities is not empty %}
+            <table class="table table-hover" style="margin-top:15px;">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Operator</th>
+                        <th>Aircraft</th>
+                        <th>Tail Number</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entity in entities %}
+                    <tr>
+                        <td>{% if entity.timestamp %}{{ entity.timestamp|date('m/d/Y') }}{% endif %}</td>
+                        <td>{{ entity.stateInfo.company }}</td>
+                        <td>{{ entity.stateInfo.name }}</td>
+                        <td>{{ entity.stateInfo.tailnum }}</td>
+                        {% if entity.status == 'Enabled' %} {% set status_color = 'green' %} {% endif %}
+                        {% if entity.status == 'Disabled' or entity.status == 'Deleted' %} {% set status_color = 'red' %} {% endif %}
+                        <td style="color:{{status_color}}">{{ entity.status }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <div class="alert" style="margin-top:15px;"><i class="icon-warning-sign"></i>There are no aircraft status logs in the Jetcharters.com system</div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

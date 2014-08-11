@@ -1,0 +1,31 @@
+{% if footer is defined  and footer == 1 %}
+
+<ul class="nav">
+    {% if blogPostEntity is defined and blogPostEntity|length>0 %}
+	{%for blogPostEntity in blogPostEntity %}
+	    <li><a href="{{path('public_blog_single',{'categorySlug':blogPostEntity.category.categorySlug,'postSlug':blogPostEntity.postSlug})}}">{{blogPostEntity.postTitle}}</a></li>
+	{% endfor %}
+	<li><a href="{{ path('public_blog') }}"><em>View More Posts »</em></a></li>
+    {% endif %}
+</ul>
+{% else %}
+<div class="tab-pane active" id="tab-01">
+    <ul class="popular-posts">
+	{%for blogPostEntity in blogPostEntity %}
+	    <li>
+		<div class="img">
+		    {% if blogPostEntity.image|length>0 %}
+			<img src="{{path('public_get_image_thumb',{'imageId':blogPostEntity.image.id, 'width' : 55, 'height': 55 })}}" alt="image" />
+		    {% else %}
+			<img src="{{ asset('bundles/jetcharterspublic/images/image-not-found.jpg') }}" alt="" width="55" height="55" >
+		    {%endif%}
+		</div><!-- / img -->
+		<div class="block">
+		    <h3><a href="{{path('public_blog_single',{'categorySlug':blogPostEntity.category.categorySlug,'postSlug':blogPostEntity.postSlug})}}">{{blogPostEntity.postTitle}}</a></h3>
+		    <span class="date">{{blogPostEntity.createdOn|date('M d, Y')}}</span>
+		</div><!-- / block -->
+	    </li>
+	{% endfor %}
+    </ul><!-- / popular-posts -->
+</div><!-- / tab-01 -->
+{% endif %}

@@ -1,0 +1,106 @@
+{% extends 'JetChartersPublicBundle::base.html.twig' %}
+
+{% block content %}
+    <div class="blog-area">
+    <div id="main" class="container">
+    <h1>Private Jet Charter Blog</h1>
+    <div class="row">
+		
+	{% block body %}{%endblock%}
+	
+	{%block rightSideBar %}
+		<aside id="sidebar" class="col-md-4">
+		    <div class="info-box search">
+			<form action="{{ path('public_blog') }}" id="blogSearchFrm" name="blogSearchFrm" method="post">
+			    <button class="btn btn-primary">search</button>
+			    <div class="holder">
+				<span class="ico-search"></span>
+				<input class="form-control" type="text" placeholder="Search Blog Posts" id="blog-search-text" name="blog-search-text" />
+			    </div><!-- / holder -->
+			</form>
+		    </div><!-- / search -->
+		    <div class="info-box">
+			<ul class="nav nav-tabs">
+			    <li class="active"><a href="#tab-01" data-toggle="tab">Popular Posts</a></li>
+			    <li><a href="#tab-02" data-toggle="tab">Recent Posts</a></li>
+			</ul>
+			<div class="tab-content">
+			    <div class="tab-pane active" id="tab-01">
+				{{ render(controller('JetChartersPublicBundle:Blog:popularBlog')) }}
+			    </div><!-- / tab-01 -->
+			    <div class="tab-pane" id="tab-02">
+				{{ render(controller('JetChartersPublicBundle:Blog:recentBlog')) }}
+			    </div><!-- / tab-02 -->
+			</div><!-- / tab-content -->
+		    </div><!-- / info-box -->
+		    <div class="calendar-box">
+			<div id="calendar"></div>
+		    </div><!-- / calendar-box -->
+		    <div class="info-box categories">
+			<strong class="title">Categories</strong>
+			<div class="row">
+			    <div class="col-md-12">
+				  {{ render(controller('JetChartersPublicBundle:Blog:categories')) }}
+			    </div>
+			</div><!-- / row -->
+		    </div><!-- / ifo-box -->
+		    <div class="info-box search-form">
+			<strong class="title">Find Charter Aircraft</strong>
+			<form action="#">
+			    <div class="row">
+				<div class="col-sm-6">
+				    <select title="Trip Type" class="form-control">
+					<option value="1">1</option>
+					<option value="1">2</option>
+					<option value="1">3</option>
+					<option value="1">4</option>
+				    </select>
+				</div>
+				<div class="col-sm-6">
+				    <select title="Passengers" class="form-control">
+					<option value="1">1</option>
+					<option value="1">2</option>
+					<option value="1">3</option>
+					<option value="1">4</option>
+				    </select>
+				</div>
+			    </div><!-- / row -->
+			    <div class="row">
+				<div class="col-sm-12">
+				    <input class="form-control" type="text" placeholder="Departure" />
+				</div>
+			    </div><!-- / row -->
+			    <div class="row">
+				<div class="col-sm-6 datepicker-holder">
+				    <span class="ico-time"></span>
+				    <input type="text" class="form-control time" placeholder="Time">
+				</div>
+				<div class="col-sm-6 datepicker-holder">
+				    <input type="text" class="form-control datepicker" placeholder="Date" id="from">
+				</div>
+			    </div><!-- / row -->
+			    <div class="row">
+				<div class="col-sm-12">
+				    <input class="form-control" type="text" placeholder="Destination" />
+				</div>
+			    </div><!-- / row -->
+			    <div class="row">
+				<div class="col-sm-6 datepicker-holder">
+				    <span class="ico-time"></span>
+				    <input type="text" class="form-control time" placeholder="Time">
+				</div>
+				<div class="col-sm-6 datepicker-holder">
+				    <input type="text" class="form-control datepicker" placeholder="Date" id="to">
+				</div>
+			    </div><!-- / row -->
+			    <div class="btn-holder clearfix">
+				<button class="btn btn-info">Get Quote</button>
+			    </div>
+			</form>
+		    </div><!-- / search-form -->
+		</aside><!-- / sidebar -->
+	{%endblock%}
+    </div><!-- / row -->
+  </div><!-- / main -->
+</div><!-- / blog-area -->
+{% endblock %}

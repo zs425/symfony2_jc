@@ -1,0 +1,29 @@
+{% extends 'JetChartersAppBundle:Admin:form_showcase.html.twig' %}
+
+{% block title %}+ Edit Empty Leg{% endblock %}
+
+{% block the_form %}
+	{% form_theme edit_form 'JetChartersAppBundle:Form:cp_form_theme.html.twig' %}
+	
+	{% if (errors is defined and errors|length>0) %}
+		<div class="alert alert-danger alert-white rounded">
+		    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+		    <div class="icon"><i class="fa fa-times-circle"></i></div>
+		    {% for error in errors %}
+			{{ error.message }}<br>
+		    {% endfor %}
+		</div>
+	{%endif%}
+	
+	{{ form_start(edit_form) }}
+	    {{form_row(edit_form.aircraft) }}
+	    
+	    <div id="paired">
+		{{form_row(edit_form.fromDate, {'attr': {'class': 'start'}}) }}
+		{{form_row(edit_form.toDate, {'attr': {'class': 'end'}}) }}
+	    </div>
+	    {{ form(edit_form) }}
+	{{ form_end(edit_form) }}	
+		    
+	{{ form(delete_form) }}
+{% endblock %}

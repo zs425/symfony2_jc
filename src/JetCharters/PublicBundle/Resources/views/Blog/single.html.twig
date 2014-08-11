@@ -1,0 +1,229 @@
+{% extends 'JetChartersPublicBundle::Blog/base.html.twig' %}
+
+{% block body %}
+	<article id="content" class="col-md-8">
+	    <ul class="info-box breadcrumbs">
+		<li><a href="{{path('public_blog')}}">Jet Charter Blog</a></li>
+		<li><a href="#">{{blogPostEntity.postTitle}}</a></li>
+	    </ul><!-- / breadcrumbs -->
+	    <section class="blog full">
+		<header>
+		    <div class="date">
+			<strong>{{blogPostEntity.createdOn|date('d')}}</strong>
+			<span>{{blogPostEntity.createdOn|date('M')}}</span>
+		    </div><!-- / date -->
+		    <div class="block">
+			<h2><a href="#">{{blogPostEntity.postTitle}}</a></h2>
+			<span class="author">Written by <strong><a href="#">{%if blogPostEntity.user%} {{blogPostEntity.user.username}}{%endif%}</a></strong></span>
+		    </div><!-- / block -->
+		    <div class="img">
+			<img src="{{ asset('bundles/jetcharterspublic/images/img01.jpg') }}" alt="image" />
+		    </div><!-- / img -->
+		</header><!-- / header -->
+		<div class="area clearfix">
+		    <div class="photo">
+			{% if blogPostEntity.image|length>0 %}
+			    <img src="{{path('public_get_image',{'imageId':blogPostEntity.image.id})}}" alt="image" />
+			{%endif%}
+		    </div><!-- / photo -->
+		    <p>{{blogPostEntity.postBody|raw}}</p>
+		</div><!-- / area -->
+		<footer>
+		    <ul class="option">
+			{% if blogPostEntity.comment and blogPostEntity.comment|length>0 %}
+			    <li><a href="#" class="ico-comment">{{ blogPostEntity.comment|length }} Comment(s) </a></li>
+			{% else %}
+			    <li><a href="#" class="ico-comment">0 Comment </a></li>
+			{% endif %}
+		    </ul><!-- / option -->
+		    {% set sharethisPath = hostName~path('public_blog_single',{'categorySlug':blogPostEntity.category.categorySlug,'postSlug':blogPostEntity.postSlug}) %}
+			
+		    <div class="widget">
+			{#<span class='st_sharethis_large' st_url='{{path('public_blog_single',{'categorySlug':blogPostEntity.category.categorySlug,'postSlug':blogPostEntity.postSlug})}}'  displayText='ShareThis'></span>#}
+			<span class='st_facebook_large' displayText='Facebook' st_url='{{ sharethisPath }}' st_title="{{blogPostEntity.postTitle}}" ></span>
+			<span class='st_twitter_large' displayText='Tweet' st_url='{{ sharethisPath }}' st_title="{{blogPostEntity.postTitle}}"></span>
+			<span class='st_linkedin_large' displayText='LinkedIn' st_url='{{ sharethisPath }}' st_title="{{blogPostEntity.postTitle}}"></span>
+			<span class='st_pinterest_large' displayText='Pinterest' st_url='{{ sharethisPath }}' st_title="{{blogPostEntity.postTitle}}"></span>
+			<span class='st_email_large' displayText='Email' st_url='{{ sharethisPath }}' st_title="{{blogPostEntity.postTitle}}"></span>
+		    </div><!-- / widget -->
+		</footer>
+		{#
+		<div class="addthis_native_toolbox"></div>
+		<?php $url = get_permalink(); $title = the_title('','', false); ?><a class="addthis_counter addthis_pill_style" addthis:url="<?php echo $url; ?>" addthis:title="<?php echo $title; ?>"></a>
+		#}
+		
+	    </section><!-- / blog -->
+	    
+	    
+		{% if blogPostEntity.comment and blogPostEntity.comment|length>0 %}
+		    <div class="info-box author-box popular-posts commentList">
+			<strong class="title">Comment</strong>
+			{% for comment in blogPostEntity.comment %}
+			    <div class="block comment-main">
+				<div class="clear">
+				    <div class="pull-left">
+					<strong class="ttl name-title"><a href="#">{{ comment.name }}</a></strong>
+				    </div>
+				    <div class="pull-right date">
+					{{ comment.insertDate|date('M d, Y') }}
+				    </div>
+				</div>
+				<p class="clear">{{ comment.commentText }}</p>
+			    </div><!-- / block -->
+			{% endfor %}
+		    
+		    </div><!-- / info-box -->
+		{% endif %}
+	    
+	    
+	    <div class="info-box author-box">
+		<div class="img">
+		    <img src="{{ asset('bundles/jetcharterspublic/images/img09.png') }}" alt="image" />
+		</div><!-- / img -->
+		<div class="block">
+		    <strong class="ttl"><a href="#">About Kevin Garrison</a></strong>
+		    <p>Kevin Garrison is an aviation author, retired Delta 767 captain, general aviation pilot and horse farm owner. He currently teaches airline aircraft systems and is a pilot examiner.</p>
+		</div><!-- / block -->
+	    </div><!-- / info-box -->
+	    <div class="info-box articles">
+		<strong class="ttl"><a href="#">Related Articles</a></strong>
+		<div class="row popular-posts">
+		
+		    {% for article in articles %}
+			<div class="col-sm-4">
+			    <div class="img">
+				{% if article.image|length>0 %}
+				    <a href="{{ path('public_blog_single',{'categorySlug':article.category.categorySlug,'postSlug':article.postSlug}) }}" ><img src="{{ path('public_get_image',{'imageId':article.image.id}) }}" alt="image" /></a>
+				{% else %}
+				    <img src="{{ asset('bundles/jetcharterspublic/images/image-not-found.jpg') }}" alt="" width="292" height="196" >
+				{%endif%}
+			    </div><!-- / img -->
+			    <div class="block">
+				<h2><a href="#">{{blogPostEntity.postTitle}}</a></h2>
+				<span class="author">Written by <strong><a href="#">{%if blogPostEntity.user%} {{blogPostEntity.user.username}}{%endif%}</a></strong></span>
+			    </div><!-- / block -->
+			    <div class="img">
+				<img src="{{ asset('bundles/jetcharterspublic/images/img01.jpg') }}" alt="image" />
+			    </div><!-- / img -->
+			</header><!-- / header -->
+			<div class="area clearfix">
+			    <div class="photo">
+				{% if blogPostEntity.image|length>0 %}
+				    <img src="{{path('public_get_image',{'imageId':blogPostEntity.image.id})}}" alt="image" />
+				{%endif%}
+			    </div><!-- / photo -->
+			    <p>{{blogPostEntity.postBody|raw}}</p>
+			</div><!-- / area -->
+			<footer>
+			    <ul class="option">
+				<li><a href="#" class="ico-comment">15 Comments</a></li>
+			    </ul><!-- / option -->
+			    <div class="widget">
+				<img src="{{ asset('bundles/jetcharterspublic/images/img03.png') }}" alt="image" />
+			    </div><!-- / widget -->
+			</footer>
+		    </section><!-- / blog -->
+		    <div class="info-box author-box">
+			<div class="img">
+			    <img src="{{ asset('bundles/jetcharterspublic/images/img09.png') }}" alt="image" />
+			</div><!-- / img -->
+			<div class="block">
+			    <strong class="ttl"><a href="#">About Kevin Garrison</a></strong>
+			    <p>Kevin Garrison is an aviation author, retired Delta 767 captain, general aviation pilot and horse farm owner. He currently teaches airline aircraft systems and is a pilot examiner.</p>
+			</div><!-- / block -->
+		    </div>#}
+		</div><!-- / popular-posts -->
+	    </div><!-- / articles -->
+	    <div class="search-form comment-form">
+		<form action="{{ path('public_blog_add_comment', { 'blogId' : blogPostEntity.id }) }}" name="commentFrm" id="commentFrm" novalidate>
+		    <strong class="title">Leave A Comment</strong>
+		    <div class="alert alert-danger rounded hide" id="commentErrorMsg"></div>
+		    <div class="alert alert-success rounded hide" id="commentSuccessMsg">asdf</div>
+		    <div class="row">
+			<div class="col-sm-4">
+			    <input class="form-control" type="text" placeholder="Name" name="commenterName" id="commenterName" />
+			</div>
+			<div class="col-sm-4">
+			    <input class="form-control" type="email" placeholder="Email" name="commenterEmail" id="commenterEmail" />
+			</div>
+			<div class="col-sm-4">
+			    <input class="form-control" type="url" placeholder="URL" name="commenterUrl" id="commenterUrl" />
+			</div>
+		    </div><!-- / row -->
+		    <textarea class="form-control" cols="1" rows="1" name="commentText" id="commentText" placeholder="Comment"></textarea>
+		    <button class="btn btn-01" type="submit" id="commentSubmit">Submit</button>
+		</form>
+	    </div><!-- / comment-form -->
+	</article><!-- / content -->
+	
+	
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript">var switchTo5x=true;</script>
+<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+<script type="text/javascript">stLight.options({publisher: "2b37a49d-22c7-4106-9c26-3ee04779a909", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
+
+<script>
+    function validateEmail($email) {
+	var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+	if( !emailReg.test( $email ) ) {
+	    return false;
+	} else {
+	    return true;
+	}
+    }
+    $(document).ready(function(){
+	$('#commentSubmit').click(function() {
+	    
+	    $('#commentErrorMsg, #commentSuccessMsg').addClass('hide');
+	    
+	    if($.trim($('#commenterName').val())=='') {
+		$('#commentErrorMsg').html("Please enter name.").removeClass('hide');
+		return false;
+	    } else if($.trim($('#commenterEmail').val())=='') {
+		$('#commentErrorMsg').html("Please enter email.").removeClass('hide');
+		return false;
+	    } else if(!validateEmail($.trim($('#commenterEmail').val()))) {
+		$('#commentErrorMsg').html("Please enter valid email.").removeClass('hide');
+		return false;
+	    } else if($.trim($('#commentText').val())=='') {
+		$('#commentErrorMsg').html("Please enter comment.").removeClass('hide');
+		return false;
+	    }
+	    
+	    $.ajax({
+		url:$('#commentFrm').attr('action'),
+		type: 'POST',
+		cache: true,
+		dataType: 'json',
+		data: $('#commentFrm').serialize(),  
+		beforeSend: function (){
+		},
+		success: function (data) {
+		    
+		    if(data.result=='Error') {
+			$('#commentErrorMsg').html(data.message).removeClass('hide');
+		    } else if(data.result=='Success') {
+			$('#commentSuccessMsg').html(data.message).removeClass('hide');
+			//$('#commentSuccessMsg')[0].reset();
+			$("#commentFrm").trigger('reset');
+		    }
+		}
+	    });
+	    
+	    return false;
+	});
+    });
+    
+</script>
+{% endblock %}
+
+{% block stylesheets %}
+    <style>
+    .comment-main:nth-child(even) { padding:10px;background-color:#fff; }
+    .comment-main:nth-child(odd) { padding:10px;background-color:#f2f2f2; }
+    .clear  { clear:both; }
+    .name-title { text-transform:capitalize; }
+    </style>
+{% endblock %}

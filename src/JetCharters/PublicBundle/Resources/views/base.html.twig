@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Jet Charters{% endblock %}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% stylesheets
+    'bundles/jetcharterspublic/css/bootstrap.css'
+    'bundles/jetcharterspublic/css/datepicker.css'
+    'bundles/jetcharterspublic/css/jquery-jvectormap.css'
+    'bundles/jetchartersapp/cp_theme/css/select2.css'
+    'bundles/jetcharterspublic/css/styles.css'
+    filter='cssrewrite' %}
+    <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+    {% block stylesheets %}{% endblock %}
+    <script src="{{ asset('bundles/jetcharterspublic/js/modernizr.custom.js') }}"></script>
+    
+    <!--[if lt IE 9]>
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/jetcharterspublic/css/ie.css') }}" media="screen"/>
+    <![endif]-->
+    
+    <style>
+    .categories .row > div {
+	    padding:0;
+    }
+    .categories ul li {
+	    width:50%;
+	    float:left;
+	    padding:0;
+    }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <div class="mask">&nbsp;</div>
+    <header id="header" class="navbar">
+        <div class="container">
+            <div class="row">
+                {% if is_granted("ROLE_OPERATOR") %}
+                    <a class="btn btn-01" href="{{ path('operator_dashboard') }}">Operator Panel</a>
+                {% elseif is_granted("ROLE_ADMIN") %}
+                    <a class="btn btn-01"  href="{{ path('admin_dashboard') }}">Admin Panel</a>
+                {% else %}
+                    <button class="btn btn-01" data-toggle="modal" data-target="#sign-in">Sign In</button>
+                {% endif %}
+                <strong class="logo"><a href="{{ path('public_index') }}">Jet Charters.com World Wide Air Charter Marketplace</a></strong>
+                <nav>
+                    <div class="navbar-toggle-holder">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                                data-target="#main-nav">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse" id="main-nav">
+                        <ul class="nav nav-pills">
+                            <li class="desktop-hidden"><a href="#">home</a></li>
+                            <li><a href="#" data-toggle="modal" data-target="#video">Video</a></li>
+                            <li><a href="#">Why Charter?</a></li>
+                            <li><a href="#">About Jet Charters</a></li>
+                            <li><a href="{{path('public_blog')}}">Blog</a></li>
+                            <li class="desktop-hidden"><a href="#" data-toggle="modal" data-target="#sign-in">Sign
+                                    In</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <!-- container -->
+    </header>
+    <!-- header -->
+    {% block content %}{% endblock %}
+    <footer id="footer">
+        <div class="container">
+            <a href="#" class="btn-top ie-fix">back-to-top</a>
+
+            <div class="row">
+                <div class="col-md-3 col-sm-4 col-md-offset-1 hidden-xs">
+                    <strong class="title">Explore Jet Charters</strong>
+                    <ul class="nav">
+                        <li><a href="{{ path('public_aircraft') }}">Aircraft by Type</a></li>
+                        <li><a href="{{ path('public_empty_leg_index') }}">Empty Legs</a></li>
+                        <li><a href="{{ path('public_air_ambulance') }}">Air Ambulance</a></li>
+                        <li><a href="{{ path('public_airports') }}">Airport Lookup</a></li>
+                        <li><a href="{{ path('public_blog') }}">Blog</a></li>
+                        <li><a href="#">List Your Aircraft</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-sm-4 size-02 hidden-xs">
+                    <strong class="title">Jet Charter Blog</strong>
+                    {{ render(controller('JetChartersPublicBundle:Blog:recentBlog', { 'footer': true })) }}
+                    {#
+                    <ul class="nav">
+                        <li><a href="#">Citation Mustang</a></li>
+                        <li><a href="#">Winter Weather </a></li>
+                        <li><a href="#">FlyingWorld’s Most Unique Airports</a></li>
+                        <li><a href="#">Visit the World’s Top 10 Ski Destinations</a></li>
+                        <li><a href="#">Technology in the Cabin</a></li>
+                        <li><a href="#"><em>View More Posts &raquo;</em></a></li>
+                    </ul> #}
+                </div>
+                <div class="col-sm-4 social-area">
+                    <strong class="title">Follow Us</strong>
+                    <ul class="social">
+                        <li><a href="#" class="facebook">facebook</a></li>
+                        <li><a href="#" class="linkedin">linkedin</a></li>
+                        <li><a href="#" class="youtube">youtube</a></li>
+                        <li><a href="#" class="twitter">twitter</a></li>
+                        <li><a href="#" class="google">google+</a></li>
+                        <li><a href="#" class="rss">rss</a></li>
+                    </ul>
+                    <!-- / social -->
+                    <strong class="title">Stay Connected</strong>
+
+                    <div class="subscribe">
+                        <form action="#">
+                            <label for="lbl01">Sign Up To Our News Letter</label>
+                            <input type="email" class="form-control" id="lbl01" placeholder="enter email address">
+                            <button class="btn btn-01" data-toggle="modal" data-target="#sign-in">Sign In</button>
+                        </form>
+                    </div>
+                    <!-- / subscribe -->
+                </div>
+            </div>
+            <!-- / holder -->
+            <div class="bottom clearfix">
+                <div class="row">
+                    <div class="col-md-8 col-sm-12">
+                        <ul class="sub-nav">
+                            <li><a href="#">Sitemap</a></li>
+                            <li class="hidden-xs"><a href="#">Air Charter</a></li>
+                            <li class="hidden-xs"><a href="#">RSS Feed</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Terms of Service</a></li>
+                        </ul>
+                        <!-- / sub-nav -->
+                    </div>
+                    <div class="col-sm-4 hidden-sm hidden-ka">
+                        <strong class="copyright">Copyright 2014, Conceptrix, LLC</strong>
+                    </div>
+                </div>
+                <!-- / row -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <span class="note">*Conceptrix, LLC, the owner of JetCharters.com, does not own or operate any aircraft or air charter operators and is not a direct or indirect air carrier.</span>
+                    </div>
+                </div>
+                <!-- / row -->
+            </div>
+            <!-- / bottom -->
+        </div>
+        <!-- / container -->
+    </footer>
+    <!-- / footer -->
+    <div class="modal fade" id="sign-in">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h2 class="modal-title">Sign In</h2>
+                </div>
+                <div class="modal-body">
+                    <div class="sign-in-form">
+                        {{ render(controller('JetChartersPublicBundle:Default:globalLogin')) }}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <p>Not a Member? <a href="#" class="sub-link">Join Today!</a></p>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+    <div class="modal fade" id="video">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h2 class="modal-title">Welcome To JetCharters.com</h2>
+                </div>
+                <div class="modal-body">
+                    <iframe src="http://www.youtube.com/embed/L9szn1QQfas#t=2m30s"></iframe>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+    <div class="modal fade" id="add-favorite">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h2 class="modal-title">Add To Favorites</h2>
+
+                    <h3>Avject Corporation</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="add-favorite-form">
+                        <form action="#">
+                            <label for="lbl-0001">Sign in to add this aircraft to your favorites.</label>
+                            <input id="lbl-0001" class="form-control" type="email" placeholder="Email Address"/>
+                            <input class="form-control" type="password" placeholder="Password"/>
+
+                            <div class="btn-holder">
+                                <button class="btn btn-info">Sign In</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <p>Not a Member? <a href="#" class="sub-link">Join Today!</a></p>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+    {% block modals %}{% endblock %}
+</div>
+{% javascripts
+'//maps.googleapis.com/maps/api/js?key=AIzaSyBsQg5FgWm3D_V9GfTDGUCU_N2CyZ-tJDE&sensor=false'
+'bundles/jetcharterspublic/js/jquery-1.10.2.js'
+'bundles/jetchartersapp/cp_theme/js/select2.min.js'
+'bundles/jetcharterspublic/js/ekko-lightbox.js'
+'bundles/jetcharterspublic/js/bootstrap.min.js'
+'bundles/jetcharterspublic/js/custom-form.js'
+'bundles/jetcharterspublic/js/custom-form.select.js'
+'bundles/jetcharterspublic/js/custom-form.checkbox.js'
+'bundles/jetcharterspublic/js/jquery-ui-1.10.4.custom.min.js'
+'bundles/jetcharterspublic/js/jquery.flexslider.js'
+'bundles/jetcharterspublic/js/jquery.sticky.js'
+'bundles/jetcharterspublic/js/jquery.vmap.min.js' %}
+<script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
+<!--[if IE]>
+<script src="{{ asset('bundles/jetcharterspublic/js/placeholders.min.js') }}"></script>
+<![endif]-->
+<!--[if lt IE 9]>
+{% javascripts
+'https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js'
+'bundles/jetcharterspublic/js/PIE.js'
+'http://html5shiv.googlecode.com/svn/trunk/html5.js'
+'bundles/jetcharterspublic/js/jquery.vmap.js'
+%}
+<script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
+<script>
+    $(document).ready(function () {
+        $(".aircraft-types ul li:last-child").addClass('last');
+    });
+</script>
+<![endif]-->
+{% javascripts
+'bundles/jetcharterspublic/js/jquery.vmap.usa.js'
+'bundles/jetcharterspublic/js/jquery-actionInView.js'
+'bundles/jetcharterspublic/js/scripts.js' %}
+<script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+{% block javascripts %}{% endblock %}
+
+</body>
+</html>

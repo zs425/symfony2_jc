@@ -1,0 +1,37 @@
+{% extends 'JetChartersAppBundle:Admin:form_showcase.html.twig' %}
+
+{% block title %}+ Assign Aircraft to {{entity}}{% endblock %}
+
+{% block choice_widget_expanded %}
+{% spaceless %}
+    <div {{ block('widget_container_attributes') }}>
+        <table width="100%">
+        {% for child in form %}
+        <tr>
+            <td style="padding-bottom:10px">{{form_widget(child)}}</td>
+            <td>{{form_label(child)}}</td>
+        </tr>
+        {{form_errors(child)}}
+        {% endfor %}
+        </table>
+    </div>
+{% endspaceless %}
+{% endblock choice_widget_expanded %}
+
+{% block button_widget %}
+{% spaceless %}
+<hr>
+    {% if label is empty %}
+        {% set label = name|humanize %}
+    {% endif %}
+        <button class="btn-glow primary" type="{{ type|default('button') }}" {{ block('button_attributes') }}>{{ label|trans({}, translation_domain) }}</button>
+    {% endspaceless %}
+{% endblock button_widget %}
+
+{% block the_form %}
+	<a class="btn-flat icon" href="{{ path('admin_aircraft_new', { 'op_username': op_username }) }}"><i class="icon-plane"></i> New Aircraft</a>
+	<hr>
+
+	{% form_theme edit_form _self %}
+	{{ form(edit_form) }}
+{% endblock %}

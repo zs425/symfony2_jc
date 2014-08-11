@@ -1,0 +1,11 @@
+{# {% extends 'JetChartersAppBundle:Operator:form_showcase.html.twig' %}
+
+{% block title %}+ Operator Video{% endblock %}
+
+{% block the_form %} #}
+<h5>Vzaar Video Status: {{vzaar_status}}</h5>
+	{{ video_embed | raw}}
+	<hr>
+	{% form_theme video_form 'JetChartersAppBundle:Form:cp_form_theme.html.twig' %}
+	{{ form(video_form) }}
+{# {% endblock %} #}

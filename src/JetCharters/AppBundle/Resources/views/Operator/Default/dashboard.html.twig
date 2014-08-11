@@ -1,0 +1,67 @@
+{% extends 'JetChartersAppBundle:Operator:base.html.twig' %}
+
+{% block page_styles %}<link rel="stylesheet" href="{{ asset('bundles/jetchartersapp/cp_theme/css/compiled/index.css') }}" type="text/css" media="screen" />{% endblock %}
+
+{% block javascripts %}
+    {{parent()}}
+    {% javascripts
+        '@JetChartersAppBundle/Resources/public/cp_theme/js/jquery.flot.js'
+        '@JetChartersAppBundle/Resources/public/cp_theme/js/jquery.knob.js'
+        '@JetChartersAppBundle/Resources/public/cp_theme/js/dashboard.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+{% block content %}
+     <div class="container-fluid">
+        <!-- upper main stats -->
+        <div id="main-stats">
+            <div class="row-fluid stats-row">
+                <div class="span3 stat">
+                    <div class="data">
+                        <span class="number"></span>
+                        ### views
+                    </div>
+                    <span class="date">This month</span>
+                </div>
+                <div class="span3 stat">
+                    <div class="data">
+                        <span class="number"></span>
+                        ### leads
+                    </div>
+                    <span class="date">This month</span>
+                </div>
+                <div class="span3 stat">
+                    <div class="data">
+                        <span class="number"></span>
+                        ### views
+                    </div>
+                    <span class="date">Last 12 Months</span>
+                </div>
+                <div class="span3 stat last">
+                    <div class="data">
+                        <span class="number"></span>
+                        ### leads
+                    </div>
+                    <span class="date">Last 12 Months</span>
+                </div>
+            </div>
+        </div>
+        <!-- end upper main stats -->
+
+        <div id="pad-wrapper">
+            <!-- statistics chart built with jQuery Flot -->
+            <div class="row-fluid chart">
+                <h4>
+                    Recent Activity
+                </h4>
+                <div class="span12">
+                    <div id="statsChart"></div>
+                </div>
+            </div>
+            <!-- end statistics chart -->
+        </div>
+    </div>
+
+{% endblock %}

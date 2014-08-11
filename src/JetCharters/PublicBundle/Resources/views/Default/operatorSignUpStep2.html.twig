@@ -1,0 +1,340 @@
+{% extends 'JetChartersPublicBundle::base.html.twig' %}
+
+{% block content %}
+
+<div class="sign-Up-area">
+	<div class="container">
+		<header class="headline">
+			<h2>Register</h2>
+		</header>
+		{% if (formErrors is defined and formErrors!='') or errors is defined and errors|length>0 %}
+			<div>
+				{% for formError in  formErrors %}
+					<p class="bg-danger">{{ formError }}</p>
+				{% endfor %}
+				
+				{% for error in  errors %}
+					<p class="bg-danger">{{ error.message }}</p>
+				{% endfor %}
+			</div>
+		{% endif %}
+		<div class="main sign-up-back">			
+			{{ form_start(form) }}
+			<h3>Number of Aircraft to Advertise</h3>
+			<div class="row row-padding">
+				<div class="col-md-3 col-sm-4 col-xs-12 padding-zero">{{ form_label(form.aircraftFleet) }}*</div>
+				<div class="col-md-5 col-sm-8 col-xs-12 padding-zero">{{ form_widget(form.aircraftFleet) }}</div>
+				<div class="col-md-4 col-sm-0 col-xs-12 padding-zero"></div>
+			</div>
+			<div class="row row-padding">	
+				<div class="col-md-3 col-sm-4 col-xs-12 padding-zero">{{ form_label(form.couponCode) }}</div>
+				<div class="col-md-5 col-sm-8 col-xs-12 padding-zero">{{ form_widget(form.couponCode) }}</div>
+				<div class="col-md-4 col-sm-0 col-xs-12 padding-zero"></div>
+			</div>
+			<div class="row row-padding">
+				<div class="col-md-3 col-sm-4 col-xs-12 padding-zero">{{ form_label(form.billCycle) }}*</div>
+				<div class="col-md-5 col-sm-8 col-xs-12 padding-zero">{{ form_widget(form.billCycle) }}</div>
+				<div class="col-md-4 col-sm-0 col-xs-12 padding-zero"></div>
+			</div>
+			<div class="row row-padding">
+				<div class="col-md-3 col-sm-4 col-xs-12 padding-zero">{{ form_label(form.totalCost) }}*</div>
+				<div class="col-md-5 col-sm-8 col-xs-12 padding-zero">{{ form_widget(form.totalCost) }}</div>
+				<div class="col-md-4 col-sm-0 col-xs-12 padding-zero"></div>
+			</div>
+			<h3>Credit Card Information</h3>
+			<div class="row row-padding">
+				<div class="col-md-3 col-sm-4 col-xs-12 padding-zero">{{ form_label(form.cardType) }}*</div>
+				<div class="col-md-5 col-sm-8 col-xs-12 padding-zero">{{ form_widget(form.cardType) }}</div>
+				<div class="col-md-4 col-sm-0 col-xs-12 padding-zero"></div>
+			</div>
+			<div class="row row-padding">
+				<div class="col-md-3 col-sm-4 col-xs-12 padding-zero">{{ form_label(form.cardNumber) }}*</div>
+				<div class="col-md-5 col-sm-8 col-xs-12 padding-zero">{{ form_widget(form.cardNumber) }}</div>
+				<div class="col-md-4 col-sm-0 col-xs-12 padding-zero"></div>
+			</div>
+			<div class="row row-padding">
+				<div class="col-md-3 col-sm-4 col-xs-12 padding-zero">{{ form_label(form.expireDate) }}*</div>
+				<div class="col-md-5 col-sm-8 col-xs-12 padding-zero">{{ form_widget(form.expireDate) }}</div>
+				<div class="col-md-4 col-sm-0 col-xs-12 padding-zero"></div>
+			</div>
+			<div class="row row-padding">
+				<div class="col-md-3 col-sm-4 col-xs-12 padding-zero">{{ form_label(form.ccvNumber) }}*</div>
+				<div class="col-md-5 col-sm-8 col-xs-12 padding-zero">{{ form_widget(form.ccvNumber) }}</div>
+				<div class="col-md-4 col-sm-0 col-xs-12 padding-zero"></div>
+			</div>
+			<div class="row row-padding">
+				<div class="col-md-3 col-sm-4 col-xs-12 padding-zero">{{ form_label(form.renewalTerm) }}*</div>
+				<div class="col-md-5 col-sm-8 col-xs-12 padding-zero">{{ form_widget(form.renewalTerm) }}</div>
+				<div class="col-md-4 col-sm-0 col-xs-12 padding-zero"></div>
+			</div>
+			<h3>Billing Information</h3>
+			<div class="row row-padding">
+				<div class="col-md-3 col-sm-4 col-xs-12 padding-zero">{{ form_label(form.operator.firstName) }}*</div>
+				<div class="col-md-5 col-sm-8 col-xs-12 padding-zero">{{ form_widget(form.operator.firstName) }}</div>
+				<div class="col-md-4 col-sm-0 col-xs-12 padding-zero"></div>
+			</div>
+			<div class="row row-padding">
+				<div class="col-md-3 col-sm-4 col-xs-12 padding-zero">{{ form_label(form.operator.lastName) }}*</div>
+				<div class="col-md-5 col-sm-8 col-xs-12 padding-zero">{{ form_widget(form.operator.lastName) }}</div>
+				<div class="col-md-4 col-sm-0 col-xs-12 padding-zero"></div>
+			</div>
+			<div class="row row-padding">
+				<div class="col-md-3 col-sm-4 col-xs-12 padding-zero">{{ form_label(form.operator.address1) }}*</div>
+				<div class="col-md-5 col-sm-8 col-xs-12 padding-zero">{{ form_widget(form.operator.address1) }}</div>
+				<div class="col-md-4 col-sm-0 col-xs-12 padding-zero"></div>
+			</div>
+			<div class="row row-padding">
+				<div class="col-md-3 col-sm-4 col-xs-12 padding-zero">{{ form_label(form.operator.address2) }}</div>
+				<div class="col-md-5 col-sm-8 col-xs-12 padding-zero">{{ form_widget(form.operator.address2) }}</div>
+				<div class="col-md-4 col-sm-0 col-xs-12 padding-zero"></div>
+			</div>
+			<div class="row row-padding">
+				<div class="col-md-3 col-sm-4 col-xs-12 padding-zero">{{ form_label(form.operator.city) }}*</div>
+				<div class="col-md-5 col-sm-8 col-xs-12 padding-zero">{{ form_widget(form.operator.city) }}</div>
+				<div class="col-md-4 col-sm-0 col-xs-12 padding-zero"></div>
+			</div>
+			<div class="row row-padding">
+				<div class="col-md-3 col-sm-4 col-xs-12 padding-zero">{{ form_label(form.operator.state) }}*</div>
+				<div class="col-md-5 col-sm-8 col-xs-12 padding-zero">{{ form_widget(form.operator.state) }}</div>
+				<div class="col-md-4 col-sm-0 col-xs-12 padding-zero"></div>
+			</div>
+			<div class="row row-padding">
+				<div class="col-md-3 col-sm-4 col-xs-12 padding-zero">{{ form_label(form.operator.country) }}*</div>
+				<div class="col-md-5 col-sm-8 col-xs-12 padding-zero">{{ form_widget(form.operator.country) }}</div>
+				<div class="col-md-4 col-sm-0 col-xs-12 padding-zero"></div>
+			</div>
+			<div class="row row-padding">
+				<div class="col-md-3 col-sm-4 col-xs-12 padding-zero">{{ form_label(form.operator.zip) }}*</div>
+				<div class="col-md-5 col-sm-8 col-xs-12 padding-zero">{{ form_widget(form.operator.zip) }}</div>
+				<div class="col-md-4 col-sm-0 col-xs-12 padding-zero"></div>
+			</div>
+			<div class="row row-padding">
+			    <div class="col-md-3 col-sm-4 col-xs-12 padding-zero"></div>
+			    <div class="col-md-5 col-sm-8 col-xs-12 padding-zero">
+				<strong>Terms and Conditions</strong>
+				<br>
+				    <div style="height:150px; width:444px; overflow-y:scroll; border: 1px solid silver">
+
+				<p><font size="2" face="Times New Roman"><b>PAYMENT TERMS</b></font> <br>
+				</p>
+				
+				<p><font size="2" face="Times New Roman">Client agrees to make monthly 
+				payments via major credit card.  
+				A five (5) percent late charge will be assessed on balances thirty (30) 
+				days past due.  Initial down payment of one month’s payment is 
+				due upon account activation. </font></p>
+				<ol type="1">
+				<li><font size="1" face="Times New Roman"><u>Definitions:</u></font></li>
+				</ol>
+				<p>      <font size="1" face="Times New Roman">1.1. “Advertising 
+				Space” means the screen and display space designated by JetCharters.com 
+				for Client’s Advertisement on the JetCharters.com website.</font></p>
+				<p>      <font size="1" face="Times New Roman">1.2. “Advertisement” 
+				means the text, images and/or graphical advertisement supplied by Client 
+				to JetCharters.com for display and publication on the JetCharters.com 
+				website.</font></p>
+				<p>      <font size="1" face="Times New Roman">1.3. “Marks” 
+				means any trademark, trade name, service mark, logo, slogan, and copyright 
+				associated with a party’s products or services.</font></p>
+				
+				<p>      <font size="1" face="Times New Roman">1.5. “Term” 
+				means the initial one (1) year or (6) month Term and any subsequent 
+				Renewal Term(s).</font></p>
+				<ol type="1" start="2">
+				<li><font size="1" face="Times New Roman"><b><u>Obligations:</u></b></font></li>
+				</ol>
+				<p>      <font size="1" face="Times New Roman">2.1. <u>Advertisement.</u>  
+				JetCharters.com shall publish the Advertisement in the Advertising Space 
+				on a continuous basis during the Term of this Agreement.  In doing 
+				so, JetCharters.com shall faithfully reproduce the Advertisement as 
+				provided by Client and shall not alter or change the Advertisement in 
+				any manner, <b>except</b> <b>that JetCharters.com may, at its sole discretion, 
+				change the size of the Advertisement, including the text and graphics, 
+				as is necessary for the Advertisement to fit within the Advertising 
+				Space</b>.  JetCharters.com shall at all times maintain a hypertext 
+				link from the Advertisement to the URL (website address) specified by 
+				Client.  <b>Client is responsible for providing to 
+				JetCharters.com all text, images and/or graphics on or before the Effective 
+				Date of this Agreement.</b></font></p>
+				
+				<p>      <font size="1" face="Times New Roman">2.2. <u>Linking 
+				Requirements</u>.  During the Term, Client's advertisements to be displayed 
+				on Publisher's website shall link directly to only those websites as 
+				Client and Publisher shall mutually agree in advance.  The parties further 
+				agree that such advertisements shall not link to any third party websites 
+				including, without limitation, websites operated by any Competitive Entities. </font></p>
+				<p>      <font size="1" face="Times New Roman">2.3. <u>Right 
+				to Refuse Advertising</u>.  All content of the Advertisement is 
+				subject to JetCharters.com’s approval.  JetCharters.com reserves 
+				the right to reject or cancel any Advertisement.  JetCharters.com 
+				does not accept advertising from companies that produce or provide pornographic 
+				products or services (which JetCharters.com shall have complete discretion 
+				to define).  </font></p>
+				<ol type="1" start="3">
+				<li><font size="1" face="Times New Roman"><b><u>Term and Termination:</u></b></font></li>
+				</ol>
+				
+				<p>      <font size="1" face="Times New Roman">3.1. 
+				<u>Term</u>.  The Term of this Agreement shall be for a period 
+				of one (1) year or (6) month ( refraction  selection labeled “renewal 
+				term” above ) under beginning on the Effective Date of 07/25/2014. 
+				At the end of the selected term, the Agreement shall automatically renew 
+				for consecutive term (the “Renewal Term(s)”) thereafter unless either 
+				party gives written notice to the other party of its intention not to 
+				renew this Agreement no later than thirty (30) days prior to the end 
+				of the current Term.</font></p>
+				<p>      <font size="1" face="Times New Roman">3.2. <u>Termination</u>.  
+				JetCharters.com may terminate this Agreement immediately upon written 
+				notice to Client if Client breaches a material term of this Agreement 
+				and fails to correct such breach within five (5) days following receipt 
+				of written notice to Client specifying each breach; or by mutual written 
+				agreement of both parties.</font></p>
+				<p>      <font size="1" face="Times New Roman"><b>4. 
+				<u>Other Legal Terms and Conditions:</u> </b>
+				Certain other legal terms and conditions of this Agreement are described 
+				in Exhibit A</font><font size="2" face="Times New Roman">. <br>
+				
+				</font><font size="3" face="Times New Roman"> </font></p>
+				<p align="center"><font size="2" face="Times New Roman"><b>EXHIBIT A </b></font></p>
+				<p><font size="1" face="Times New Roman">1.  <u>Warranty; Limitation 
+				of Liability; Disclaimer; Indemnification:</u></font></p>
+				<p><font size="1" face="Times New Roman">1.1. <u>Warranty</u>.</font></p>
+				<p><font size="1" face="Times New Roman">1.1.1. <u>Client Warranties</u>.  
+				Client represents and warrants that the use, reproduction, distribution, 
+				or transmission of the Advertisement will not violate any criminal laws 
+				or any rights of any third parties, including, but not limited to, such 
+				violations as infringement or misappropriation of any copyright, patent, 
+				trademark, trade secret, music, image, or other proprietary or property 
+				right, false advertising, unfair competition, defamation, invasion of 
+				privacy or rights of any celebrity, violation of any anti-discrimination 
+				law or regulation, or any other right of any person or entity.</font></p>
+				<p><font size="1" face="Times New Roman">1.1.2. <u>JetCharters.com Warranties</u>.  
+				JetCharters.com warrants that the JetCharters.com Advertising Services 
+				will be performed for Client in a diligent and workman-like manner in 
+				accordance with industry standards, laws, and governmental regulations 
+				applicable to the performance of such services.</font></p>
+				
+				<p><font size="1" face="Times New Roman">1.2. <u>Limitation of Liability</u>.   
+				IN NO EVENT SHALL <a target="_blank" href="http://JETCHARTERS.COM">JETCHARTERS.COM</a> BE LIABLE TO CLIENT FOR ANY LOSS OF 
+				PROFITS, LOSS OF BUSINESS, LOSS OF USE OF DATA, INTERRUPTION OF BUSINESS, 
+				OR FOR INDIRECT, SPECIAL, INCIDENTAL, EXEMPLARY, MULTIPLE, PUNITIVE, 
+				OR CONSEQUENTIAL DAMAGES OF ANY KIND, WHETHER BASED ON CONTRACT, TORT, 
+				WARRANTY, GUARANTEE, OR ANY OTHER LEGAL OR EQUITABLE GROUNDS.  
+				NEITHER <a target="_blank" href="http://JETCHARTERS.COM">JETCHARTERS.COM</a> NOR CLIENT SHALL MAKE REPRESENTATIONS OR WARRANTIES 
+				TO ANY END USER OR THIRD PARTY ON BEHALF OF THE OTHER PARTY AND IN NO 
+				EVENT WILL EITHER PARTY BE LIABLE TO THE OTHER PARTY FOR ANY REPRESENTATION 
+				OR WARRANTY MADE TO ANY END USER OR THIRD PARTY BY THE OTHER PARTY.  
+				THESE LIMITATIONS SHALL SURVIVE AND APPLY NOTWITHSTANDING THE VALIDITY 
+				OF THE LIMITED REMEDIES PROVIDED FOR IN THE AGREEMENT.  <a target="_blank" href="http://JETCHARTERS.COM">JETCHARTERS.COM</a> 
+				SHALL IN NO EVENT BE LIABLE TO THE CLIENT UNDER THIS AGREEMENT FOR MORE 
+				THAN THE AMOUNT PAID BY THE CLIENT TO <a target="_blank" href="http://JETCHARTERS.COM">JETCHARTERS.COM</a> DURING THE YEAR 
+				IN WHICH THE LIABILITY ACCRUES.</font></p>
+				<p><font size="1" face="Times New Roman">1.3. <u>Disclaimer</u>.  
+				EXCEPT AS EXPRESSLY SET FORTH IN THIS AGREEMENT, <a target="_blank" href="http://JETCHARTERS.COM">JETCHARTERS.COM</a> DOES 
+				NOT MAKE, AND HEREBY SPECIFICALLY DISCLAIMS, ANY REPRESENTATIONS OR 
+				WARRANTIES, EXPRESS OR IMPLIED, REGARDING <a target="_blank" href="http://JETCHARTERS.COM">JETCHARTERS.COM</a>’S SERVICES 
+				OR <a target="_blank" href="http://JETCHARTERS.COM">JETCHARTERS.COM</a>’S ADVERTISING SERVICES, INCLUDING ANY IMPLIED WARRANTY 
+				OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE AND IMPLIED WARRANTIES 
+				ARISING FROM COURSE OF DEALING OR COURSE OF PERFORMANCE.</font></p>
+				
+				<p><font size="1" face="Times New Roman">1.4. <u>Indemnification</u>.  
+				Client agrees to indemnify, and hold harmless JetCharters.com and its 
+				officers, directors, employees, agents, successors, and assigns from 
+				and against any and all losses, liabilities, damages, penalties and 
+				claims and all related costs and expenses (including reasonable attorneys’ 
+				fees) related to claims made by third parties against JetCharters.com 
+				that the Client’s marks or other intellectual property infringe the 
+				patents, copyrights, trademarks, or service marks, or other intellectual 
+				property rights as such third parties.  Client agrees to indemnify 
+				and hold harmless JetCharters.com and its officers, directors, employees, 
+				agents, successors, and assigns from and against all third party claims, 
+				causes of action, liabilities, and all other reasonable costs and expenses 
+				resulting or arising from Client’s breach of this agreement.  
+				JetCharters.com agrees to promptly notify Client in writing of any indemnifiable 
+				claim.  JetCharters.com shall cooperate in all reasonable respects 
+				with the indemnifying party and its attorneys in the investigation, 
+				trial, defense, and settlement of such claim and any appeal arising 
+				therefrom.  JetCharters.com may participate in such investigation, 
+				trial, defense, and settlement of such claim and any appeal arising 
+				therefrom through its attorneys or otherwise, at its own cost and expense.  
+				No settlement of a claim that involves a remedy other than the payment 
+				of money by the Client shall be entered into without the consent of 
+				JetCharters.com, which consent will not be unreasonably withheld. <br>
+				<br>
+				2                <u>
+				Miscellaneous:</u></font></p>
+				<p><font size="1" face="Times New Roman">2.1. <u>Independent Contractors</u>.  
+				The parties to this Agreement are independent parties and nothing herein 
+				shall be construed as creating an employment relationship between the 
+				parties.  Neither party is an agent, representative, or partner 
+				of the other party, and neither party shall have any right, power or 
+				authority to enter into any agreement for or on behalf of, or incur 
+				any obligation or liability, or to otherwise bind, the other party.  
+				The Agreement shall not be interpreted or construed to create an association, 
+				agency, joint venture, or partnership between the parties or to impose 
+				any liability attributable to such a relationship upon either party.</font></p>
+				<p><font size="1" face="Times New Roman">2.2. <u>Governing Law</u>.   
+				The Agreement shall be governed by the laws of the State of Tennessee 
+				without giving effect to applicable conflict of laws provisions.  
+				All actions with respect to this Agreement shall be brought in federal 
+				or state court in Knox County, Tennessee, and the parties expressly 
+				consent to the personal jurisdiction of such courts.  In the event 
+				any litigation or other proceeding is brought by either party in connection 
+				with this Agreement, the prevailing party in such litigation or other 
+				proceeding shall be entitled to recover from the other party all costs, 
+				attorneys’ fees, and other expenses incurred by such prevailing party 
+				in such litigation.</font></p>
+				
+				<p><font size="1" face="Times New Roman">2.3. <u>Entire Agreement</u>.  
+				This Agreement constitutes the entire agreement between the parties 
+				with respect to the subject matter herein and supersedes all prior negotiations, 
+				communications, writings, and understandings.</font></p>
+				<p><font size="1" face="Times New Roman">2.4. <u>Notice</u>.  Notices 
+				given under this Agreement shall be given to the following:</font></p>
+				<ul><ul><p><font size="1" face="Times New Roman"><u>JetCharters.com</u>: <br>
+							    5201 Kingston Pike, Suite 6325 <br>
+				Knoxville, Tennessee 37919</font></p></ul></ul>
+				
+				<p><font size="1" face="Times New Roman">2.5 Headings.  The headings 
+				used in this Agreement and Exhibit are for convenience only and shall 
+				not be used to interpret or construe its provisions.</font>
+				</p></div>
+                            </div>
+                            <div class="col-md-4 col-sm-0 col-xs-12 padding-zero"></div>
+			</div>
+			<div class="row row-padding">
+				<div class="col-md-3 col-sm-4 col-xs-12 padding-zero"></div>
+				<div class="col-md-5 col-sm-8 col-xs-12 padding-zero">{{ form_row(form.termConditons) }}</div>
+				<div class="col-md-4 col-sm-0 col-xs-12 padding-zero"></div>
+			</div>
+			<div class="row row-padding">
+				<div class="col-md-3 col-sm-4 col-xs-12 padding-zero">{{ form_label(form.submit) }}</div>
+				<div class="col-md-5 col-sm-8 col-xs-12 padding-zero submit-but">{{ form_widget(form.submit) }}</div>
+				<div class="col-md-4 col-sm-0 col-xs-12 padding-zero"></div>
+			</div>
+			{{ form_end(form) }}
+		</div>
+	</div>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+<script>
+    var planePrice = 49.95;
+    $('#jetcharters_appbundle_operatorbillinginformation_billCycle').change(function(){
+	if($(this).val()=='quarterly') {
+	    var discount = 5
+	    var amount = (5/100)*parseFloat(planePrice)
+	    $(totalCost).val("$"+amount)+" per quarter";
+	}else if($(this).val()=='monthly') {
+	    var discount = 5
+	    var amount = (5/100)*parseFloat(planePrice)
+	    $(totalCost).val("$"+amount)+" per year";
+	}else {
+	    var totalCost = '#jetcharters_appbundle_operatorbillinginformation_totalCost';
+	    $(totalCost).val("$"+planePrice)+" per month";
+	}
+    })
+</script>
+{% endblock %}

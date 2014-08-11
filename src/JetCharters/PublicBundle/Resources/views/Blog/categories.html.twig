@@ -1,0 +1,5 @@
+<ul>
+    {%for entity in blogCategoryEntity %}
+	<li><a href="{{path('public_blog',{'categorySlug':entity.categorySlug})}}">{{entity.categoryName}}</a></li>
+    {%endfor%}
+</ul>

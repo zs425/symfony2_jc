@@ -1,0 +1,89 @@
+{% extends 'JetChartersAppBundle:Admin:base.html.twig' %}
+
+{% block content %}			
+<div class="container-fluid">
+	<div class="form-page" id="pad-wrapper">
+		<div class="row-fluid form-wrapper">
+			<div class="row-fluid head">
+			    <div class="span12">
+				<h4 style="margin:-20px 0 20px 0;">Blog Post</h4>
+			    </div>
+			</div>
+			<div class="row-fluid filter-block">
+			    <div class="span8">
+			    
+				{#<input type="text" id="search" placeholder="Filter">#}
+			    </div>
+			    <div align="right" class="span4 pull-right">
+				<a href="{{ path('admin_blog_post_new') }}" class="btn-glow primary"> Add New</a>
+			    </div>
+			</div>
+			
+			
+			<table style="margin-top:15px;" class="table table-hover">
+				
+				<thead>
+					<tr>
+					    <th>#</th>
+					    <th>Post title</th>
+					    <th>Post category</th>
+					    <th>Created on</th>
+					    <th>Updated on</th>
+					    <th width="16%">Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for entity in entities %}
+					      <tr>
+						  <td>{{loop.index}}</td>
+						  <td>{{ entity.postTitle }}</td>
+						  <td>{{ entity.category.categoryName }}</td>
+						  <td>{% if entity.createdOn %}{{ entity.createdOn.date|datetime('m/d/Y h:iA')}}{% endif %}</td>
+						  <td>{% if entity.updatedOn %}{{ entity.updatedOn.date|datetime('m/d/Y h:iA')}}{% endif %}</td>
+						  <td>
+							<div class="pull-left">
+								<a href="{{ path('admin_blog_post_edit', { 'id': entity.id }) }}" class="btn-flat icon btn-block"><i class="icon-edit"></i>edit</a>
+								</div>
+								<div class="pull-right">
+								<a href="javascript:void(0)" id="{{ path('admin_blog_post_delete', { 'id': entity.id }) }}" class="btn-flat icon btn-block btn-danger-icon"  data-target="#mod-warning" data-toggle="modal"><i class="icon-remove"></i>remove</a>
+							</div>
+						  </td>
+					      </tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="mod-warning" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+	<form action="" method="POST" id="removePostForm">		
+	    <div class="modal-header">
+	      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	      <h4 class="modal-title" id="myModalLabel">Remove Confirmation</h4>
+	    </div>
+	    <div class="modal-body">
+		Are you sure to proceed?
+	    </div>
+	    <div class="modal-footer">
+	      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      <button type="submit" class="btn btn-primary">Proceed</button>
+	    </div>
+	</form>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{%block additionalJavascripts %}
+<script type="text/javascript">
+    $(document).ready(function() {
+	$(".btn-danger-icon").click(function() {
+	    $('#removePostForm').attr("action", this.id);	
+	});	    
+    });
+</script>
+{% endblock %}

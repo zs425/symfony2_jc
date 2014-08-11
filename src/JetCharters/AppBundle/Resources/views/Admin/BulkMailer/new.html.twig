@@ -1,0 +1,8 @@
+{% extends 'JetChartersAppBundle:Admin:form_showcase.html.twig' %}
+
+{% block title %}+ Add Bulk Mailer {% endblock %}
+
+{% block the_form %}
+	{% form_theme form 'JetChartersAppBundle:Form:cp_form_theme.html.twig' %}
+	{{ form(form) }}
+{% endblock %}

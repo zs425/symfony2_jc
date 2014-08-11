@@ -1,0 +1,9 @@
+{% form_theme form 'JetChartersAppBundle:Form:cp_form_theme.html.twig' %}
+{{ form_start(form) }}
+{{ form(form) }}
+<div id="paired">
+    {{form_row(form.fromDate, {'attr': {'class': 'start'}}) }}
+    {{form_row(form.toDate, {'attr': {'class': 'end'}}) }}
+</div>
+
+{{ form_end(form) }}	

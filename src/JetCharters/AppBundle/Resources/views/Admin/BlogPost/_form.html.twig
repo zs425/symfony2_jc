@@ -1,0 +1,25 @@
+<div class="container-fluid">
+	<div class="form-page" id="pad-wrapper">
+		<div class="row-fluid form-wrapper">
+		      <div class="row-fluid head">
+			  <div class="span12">
+			      <h4 style="margin:-20px 0 20px 0;">{{title}}</h4>
+			  </div>
+		      </div>
+		      
+		      {% if (errors is defined and errors|length>0) %}
+			      <div class="alert alert-danger alert-white rounded">
+				    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+				    <div class="icon"><i class="fa fa-times-circle"></i></div>
+				    {% for error in errors %}
+					{{ error.message }}<br>
+				    {% endfor %}
+			      </div>
+		      {%endif%}
+		      
+		      {{ form_start(form,{'attr':{'novalidate': 'novalidate'}}) }}
+		      {{ form(form) }}
+		      {{ form_end(form) }}
+		</div>
+	</div>
+</div>

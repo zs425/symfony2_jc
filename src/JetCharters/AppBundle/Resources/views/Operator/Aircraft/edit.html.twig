@@ -1,0 +1,57 @@
+{% extends 'JetChartersAppBundle:Operator:form_showcase.html.twig' %}
+
+{% block title %}+ Edit Aircraft{% endblock %}
+
+{% block the_form %}
+  {% form_theme edit_form 'JetChartersAppBundle:Form:cp_form_theme.html.twig' %}
+
+  <ul class="nav nav-tabs" id="tabs">
+    <li class="active"><a href="#form" data-toggle="tab">Aircraft</a></li>
+    <li><a href="#images" data-toggle="tab">Images</a></li>
+    <li><a href="#videos" data-toggle="tab">Videos</a></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane active" id="form">
+    {{ form(edit_form) }}
+    {{ form(delete_form) }}
+    </div>
+    <div class="tab-pane" id="images">
+    <h4>Images:</h4>
+    <p>
+    <form   action="{{path('operator_aircraft_upload_image', {"id": entity.id})}}" class="dropzone" id="dropzone_image_upload"
+            data-existing="{{path('operator_aircraft_get_images', {"id": entity.id})}}"
+            data-deleteurl="{{path('operator_aircraft_delete_image')}}">
+      <div class="fallback">
+        <input name="file" type="file" multiple />
+      </div>
+    </form>
+    </p>
+    </div>
+    <div class="tab-pane" id="videos">
+    <h4>Videos:</h4>
+    <p>
+      <form action="{{path('operator_aircraft_upload_video', {"id": entity.id})}}" class="dropzone" id="dropzone_video_upload"
+            data-existing="{{path('operator_aircraft_get_videos', {"id": entity.id})}}"
+            data-deleteurl="{{path('operator_aircraft_delete_video')}}"
+            data-embedurl="{{path('operator_aircraft_get_video_embed')}}">
+      <div class="fallback">
+        <input name="file" type="file" multiple />
+      </div>
+    </form>
+    </p>
+    </div>
+  </div>
+
+<div id="video-modal" class="modal hide fade" tabindex="-1" role="dialog">
+  <div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  <h3 id="myModalLabel">Video</h3>
+  </div>
+
+  <div class="modal-body"></div>
+</div>
+{% endblock %}
+
+{% block aside %}
+
+{% endblock %}

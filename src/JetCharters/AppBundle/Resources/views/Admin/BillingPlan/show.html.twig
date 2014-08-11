@@ -1,0 +1,64 @@
+{% extends 'JetChartersAppBundle:Admin:base.html.twig' %}
+
+{% block content %}
+<div class="container-fluid">
+    <div id="pad-wrapper" class="form-page">
+        <div class="row-fluid form-wrapper">
+            <div class="row-fluid head">
+                <div class="span12">
+                    <h4 style="margin:-20px 0 20px 0;">+ Billing Plan: {{entity.name}} </h4>
+                </div>
+            </div>
+
+            <table class="table table-hover" style="margin-top:15px;">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ entity.name }}</td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>{{ entity.price }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ entity.description }}</td>
+            </tr>
+            <tr>
+                <th>Autorenew</th>
+                <td>{{ entity.autorenew }}</td>
+            </tr>
+            <tr>
+                <th>Activefrom</th>
+                <td>{{ entity.activeFrom|date('m/d/Y h:i A') }}</td>
+            </tr>
+            <tr>
+                <th>Activeto</th>
+                <td>{{ entity.activeTo|date('m/d/Y h:i A') }}</td>
+            </tr>
+            <tr>
+                <th>Sortorder</th>
+                <td>{{ entity.sortOrder }}</td>
+            </tr>
+            <tr>
+                <th>Lengthindays</th>
+                <td>{{ entity.lengthInDays }}</td>
+            </tr>
+            <tr>
+                <th>Enabled</th>
+                <td>{{ entity.enabled }}</td>
+            </tr>
+            <tr>
+                <th>Numberaircraft</th>
+                <td>{{ entity.numberAircraft }}</td>
+            </tr>
+        </tbody>
+       </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

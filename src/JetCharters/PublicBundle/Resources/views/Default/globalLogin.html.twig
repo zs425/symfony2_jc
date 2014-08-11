@@ -1,0 +1,14 @@
+<form action="{{ path("fos_user_security_check") }}" method="post">
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+    <input class="form-control" type="email" placeholder="Email Address" id="username" name="_username" value=""/>
+    <input class="form-control" type="password" placeholder="Password" id="password" name="_password"/>
+
+    <div class="chk-holder">
+        <input class="chk" type="checkbox" id="lbl-01"/>
+        <label for="lbl-01">Remember Me</label>
+        <a href="#" class="sub-link">Forgot Password?</a>
+    </div>
+    <div class="btn-holder">
+        <input class="btn btn-info" type="submit" id="_submit" name="_submit" value="Login" />
+    </div>
+</form>

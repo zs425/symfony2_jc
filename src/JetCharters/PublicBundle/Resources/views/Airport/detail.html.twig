@@ -1,0 +1,226 @@
+{% extends 'JetChartersPublicBundle::base.html.twig' %}
+
+{% block content %}
+<section class="intro-02">
+    <div class="container">
+        <div class="airplane-details row ie-fix">
+            <header class="headline">
+                <h2>{{ airport.name|formalText }} Private Jet Charter Service &amp; Air Charter Flights</h2>
+            </header>
+            <div class="info">
+                <div class="img">
+                    <img src="{{ asset('bundles/jetcharterspublic/images/ico-22.png') }}" alt="image">
+                    <span class="identifier">Identifier: <strong>{{ airport.icaoCode }}</strong></span>
+                    <span class="city"><img src="{{ asset('bundles/jetcharterspublic/images/ico-001.png') }}" alt="image">{{ airport.state }}, {{ airport.city }}</span>
+                </div><!-- img -->
+                <p>Looking for Charter Aircraft at {{ airport.name|formalText }} in {{ airport.city|formalText }}, {{ airport.state|formalText }}?<br/>Below you will find aircraft available for charter with as little as four hours notice. Simply contact any of the air charter providers listed on this page to obtain a no obligation jet charter quote. </p>
+                <p>If you don't see the charter aircraft you desire for your flight call 866-999-5387 or fill out our <br/>jet charter quote request form to have a knowledgeable air charter consultant promptly contact you. Your personal air charter consultant will gladly locate the best suited charter aircraft for your flight and provide you with a no obligation private jet charter quote. </p>
+            </div><!-- info -->
+        </div><!-- airplane-details -->
+    </div>
+    <div class="aircraft-types-form">
+        <div class="container">
+            <form action="#">
+                <div class="cel">
+                    <select title="Aircraft By Type" class="form-control">
+                        <option value="1">Aircraft By Type 1</option>
+                        <option value="2">Aircraft By Type 2</option>
+                        <option value="3">Aircraft By Type 3</option>
+                        <option value="4">Aircraft By Type 4</option>
+                    </select>
+                </div>
+                <div class="cel">
+                    <input class="form-control" type="text" placeholder="City/Airport Code" />
+                </div>
+                <div class="cel">
+                    <select title="Search Radius" class="form-control">
+                        <option value="1">Search Radius 1</option>
+                        <option value="2">Search Radius 2</option>
+                        <option value="3">Search Radius 3</option>
+                        <option value="4">Search Radius 4</option>
+                    </select>
+                </div>
+                <div class="btn-holder">
+                    <button class="btn btn-info">Search</button>
+                </div>
+            </form>
+            <button class="btn btn-info btn-mobile" data-toggle="modal" data-target="#aircraft-category">Aircraft By Radius</button>
+        </div>
+    </div><!-- aircraft-types-form -->
+</section><!-- intro-01 -->
+<section class="map-holder w1">
+    <div class="w2">
+        <div class="w3 full-width-map">
+	    <div id="map-canvas"></div>
+	</div>
+    </div>
+</section><!-- map-holder -->
+<section class="available-aircrafts">
+    <div class="container">
+        <h2>Aircraft Available for Charter at {{ airport.name|formalText }}</h2>
+	
+        {% for airplane  in airport.charterAircraft %}
+	    <div class="info-aircraft info-aircraft-inner">
+		<div class="img-holder">
+		    {% if airplane.images|length > 0 %}
+			<img src="{{ asset('images/uploads/' ~ airplane.images.first.imagename) }}" alt="" width="292" height="196" >
+			<span class="mask-01">
+				<a href="{{ asset('images/uploads/' ~ airplane.images.first.imagename) }}" data-toggle="lightbox" data-parent=".available-aircrafts" data-gallery="multiimages" data-title="{{ airplane.name }}" data-footer="Get Quote: {{ airplane.operator.contactphone }}">gallery</a>
+			</span>
+		    {% else %}
+			<img src="{{ asset('bundles/jetcharterspublic/images/image-not-found.jpg') }}" alt="" width="292" height="196" >
+		    {% endif %}
+		</div>
+		<div class="holder">
+		    <header class="heading">
+			<h3>{{ airplane.aircraftmodel.name }}</h3>
+			<a data-toggle="modal" data-target="#add-favorite" href="#" class="add-favorite selected"><span>Add</span> Favorite<strong> !</strong></a>
+		    </header>
+		    <div class="frame">
+			<ul class="list-info list-info-big">
+			    <li>
+				<img src="{{ asset('bundles/jetcharterspublic/images/ico-002.png') }}" alt="" >
+				<ul>
+				    <li>Tail # <span>{{ airplane.tailNumber }}</span></li>
+				</ul>
+			    </li>
+			    <li><a href="#" class="tooltip-link" data-placement="top" title="1{{ airplane.location.closestcitydistancemiles }} Miles From {{ airplane.location.closestcity }}"><img src="{{ asset('bundles/jetcharterspublic/images/ico-001.png') }}" alt="" ><span>{{ airplane.location.icaoCode }}</span></a></li>
+			    <li><a href="#" class="tooltip-link" data-placement="top" title="{{ airplane.operator.contactPhoneNumber }}"><img src="{{ asset('bundles/jetcharterspublic/images/img-001.png') }}" alt="" ><span>{{ airplane.operator.name }}</span></a></li>
+			    <li><img src="{{ asset('bundles/jetcharterspublic/images/ico-dollar.png') }}" alt="" ><strong>${{ airplane.hourlyrate }}/hr</strong></li>
+			</ul><!-- / list-info -->
+			<img class="custom-logo" src="{{ asset('bundles/jetcharterspublic/images/ico-21.png') }}" alt="image">
+			<button class="btn btn-info">Get Quote</button>
+		    </div>
+		</div>
+	    </div><!-- / info-aircraft -->
+        {% endfor %}
+        {#
+        <div class="info-aircraft info-aircraft-inner">
+            <div class="img-holder">
+                <img src="{{ asset('bundles/jetcharterspublic/images/img-info-aircraft-01.png') }}" alt="" >
+		<span class="mask-01">
+			<a href="images/img13.png" data-toggle="lightbox" data-parent=".available-aircrafts" data-gallery="multiimages" data-title="Name Of Jet" data-footer="Get Quote: 1-800-538-6070">gallery</a>
+		</span>
+            </div>
+            <div class="holder">
+                <header class="heading">
+                    <h3>Gulfstream V</h3>
+                    <a data-toggle="modal" data-target="#add-favorite" href="#" class="add-favorite selected"><span>Add</span> Favorite<strong> !</strong></a>
+                </header>
+                <div class="frame">
+                    <ul class="list-info list-info-big">
+                        <li>
+                            <img src="{{ asset('bundles/jetcharterspublic/images/ico-002.png') }}" alt="" >
+                            <ul>
+                                <li>Tail # <span>N184WW</span></li>
+                            </ul>
+                        </li>
+                        <li><a href="#" class="tooltip-link" data-placement="top" title="18 Miles From LAX"><img src="{{ asset('bundles/jetcharterspublic/images/ico-001.png') }}" alt="" ><span>BUR</span></a></li>
+                        <li><a href="#" class="tooltip-link" data-placement="top" title="(800) 555-5555"><img src="{{ asset('bundles/jetcharterspublic/images/img-001.png') }}" alt="" ><span>Avjet Corperation</span></a></li>
+                        <li><img src="{{ asset('bundles/jetcharterspublic/images/ico-dollar.png') }}" alt="" ><strong>$750/hr</strong></li>
+                    </ul><!-- / list-info -->
+                    <img class="custom-logo" src="{{ asset('bundles/jetcharterspublic/images/ico-21.png') }}" alt="image">
+                    <button class="btn btn-info">Get Quote</button>
+                </div>
+            </div>
+        </div><!-- / info-aircraft -->
+        #}
+    </div>
+</section><!-- available-aircrafts -->
+<section class="similar-operators parallax-bg-01">
+    <div class="container">
+        <h2>Airports Near {{airport.icaoCode}}</h2>
+        <div class="operators-carousel" id="carousel-02">
+            <ul class="slides">
+		{% for nearestAirport in nearestAirports %}
+		    <li>
+			<a href="{{ path('public_airport_detail', {'location': nearestAirport.state|cleanurl, 'slug' : nearestAirport.slug }) }}" class="holder"><div class="wrap">
+				<h3>{{ nearestAirport.icao_code }}</h3>
+				<p>{{ nearestAirport.name }}</p>
+				<span>{{ nearestAirport.distance|round }} {% if nearestAirport.distance|round <= 1 %} mile {% else %} miles {% endif %}</span>
+			    </div></a>
+		    </li>
+		{% endfor %}
+		    		
+            {#
+                <li>
+                    <a href="#" class="holder"><div class="wrap">
+                            <h3>HHR</h3>
+                            <p>Northrop Field <br/>Municipal</p>
+                            <span>5 miles</span>
+                        </div></a>
+                </li>
+                <li>
+                    <a href="#" class="holder"><div class="wrap">
+                            <h3>PSP</h3>
+                            <p>Palm Springs Int'l</p>
+                            <span>25 miles</span>
+                        </div></a>
+                </li><li>
+                    <a href="#" class="holder"><div class="wrap">
+                            <h3>L77</h3>
+                            <p>Chiriaco Summit</p>
+                            <span>26 miles</span>
+                        </div></a>
+                </li><li>
+                    <a href="#" class="holder"><div class="wrap">
+                            <h3>TNP</h3>
+                            <p>Twentynine Palms</p>
+                            <span>38 miles</span>
+                        </div></a>
+                </li><li>
+                    <a href="#" class="holder"><div class="wrap">
+                            <h3>NXP</h3>
+                            <p>Twentynine Palms Eaf</p>
+                            <span>47 miles</span>
+                        </div></a>
+                </li><li>
+                    <a href="#" class="holder"><div class="wrap">
+                            <h3>HHR</h3>
+                            <p>Northrop Field <br/>Municipal</p>
+                            <span>5 miles</span>
+                        </div></a>
+                </li><li>
+                    <a href="#" class="holder"><div class="wrap">
+			<h3>HHR</h3>
+			<p>Northrop Field <br/>Municipal</p>
+			<span>5 miles</span>
+                        </div></a>
+                </li>
+                #}
+            </ul>
+        </div><!-- aircraft-slider -->
+    </div>
+</section>
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.full-width-map').width($(document).width());
+            var mapOptions = {
+                center: new google.maps.LatLng(38.822591, -101.601563),
+                zoom: 4,
+                scrollwheel: false
+            };
+
+            var map = new google.maps.Map(document.getElementById("map-canvas"),
+                    mapOptions);
+
+            var latlngbounds = new google.maps.LatLngBounds();
+
+            // setup the charter markers
+            var ltlg = new google.maps.LatLng(dms2deg('{{ airport.latitude }}'), dms2deg('{{ airport.longitude }}'));
+            var marker = new google.maps.Marker({
+                position: ltlg,
+                title: '{{ airport.name|formalText }}'
+            });
+            latlngbounds.extend(ltlg);
+            marker.setMap(map);
+            
+            map.setCenter(latlngbounds.getCenter());
+            //map.fitBounds(latlngbounds);
+            map.setZoom(16);
+        });
+    </script>
+{% endblock %}

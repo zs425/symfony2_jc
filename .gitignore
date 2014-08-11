@@ -1,0 +1,23 @@
+# Bootstrap
+app/bootstrap*
+
+# Symfony directories
+vendor/*
+*/logs/*
+*/cache/*
+web/uploads/*
+web/bundles/*
+web/images/*
+web/videos/*
+/build/
+/vendor/
+/bin/
+/composer.phar
+
+# Configuration files
+app/config/parameters.ini
+app/config/parameters.yml
+
+aws_credential_file
+.idea
+vagrant/.vagrant

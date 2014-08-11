@@ -1,0 +1,49 @@
+{% extends 'JetChartersPublicBundle::base.html.twig' %}
+
+{% block title %}{{ app.request.get('location')|formalText  }} Airports Information and {{ app.request.get('location')|formalText  }} Airport Code{% endblock %}
+
+{% block content %}
+<section class="intro-02">
+	<div class="container">
+		<div class="airplane-details row ie-fix">
+			<header class="headline airport-bottom-margin"><h2>{{ app.request.get('location')|formalText  }} Airport Information</h2></header>
+			<div class="info airport-paragraph">
+				<p>Jet Charter Media knows you need more than just the airport name. We have everything from the Airport Code, to Airport Hotels that are nearby, and even Maps of Alabama Airports. Choose the airport you want more info on; it's our service to you. </p>
+			</div>
+			<div class="row">
+				<div class="pull-left col-md-6">
+				    <table width="100%" border="1" cellpadding="1" cellspaing="0" class="airport-table">
+					    <tr>
+						<th width="25%">City</th>
+						<th width="50%">Airport</th>
+						<th width="25%">Airport Code</th>
+					    </tr>
+					    {% set halfCountAirport = (airports|length/2)|round %}
+					    {% set count = 0 %}
+					    {% for airport in airports %}
+					    {% set count = count+1 %}
+						<tr>
+						    <td>{{ airport.city|lower|capitalize }}</td>
+						    <td><a href="{{ path('public_airport_detail', {'location': airport.state|cleanurl, 'slug' : airport.slug }) }}">{{ airport.name|formalText }} Airport</a></td>
+						    <td>{{ airport.airportcode }}</td>
+						</tr>
+					    {% if count== halfCountAirport%}
+						</table>
+					    </div>
+					    <div class="pull-left col-md-6">
+						    <table width="100%" border="1" cellpadding="1" cellspaing="0" class="airport-table">
+							<tr>
+							    <th width="25%">City</th>
+							    <th width="50%">Airport</th>
+							    <th width="25%">Airport Code</th>
+							</tr>
+							{% endif %}
+						    {% endfor %}
+						</table>
+					    </div>
+					</div>
+				    <div>&nbsp;</div>
+			</div>
+	</div>
+</section>
+{% endblock %}

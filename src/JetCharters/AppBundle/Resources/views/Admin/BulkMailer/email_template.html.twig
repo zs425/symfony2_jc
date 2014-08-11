@@ -1,0 +1,65 @@
+<table cellspacing="0" cellpadding="8" width="820">
+    <tbody>
+        <tr>
+            <td align="left"><a href="http://www.jetcharters.com"><img border="0" src="<cfoutput>#cdnURL#</cfoutput>/images/logo.gif" alt="" /></a>
+            </td>
+            <td align="right" valign="bottom"><a href="http://www.facebook.com/pages/JetCharterscom-Worldwide-Air-Charter-Marketplace/136895476515" target="_blank"><img src="<cfoutput>#cdnURL#</cfoutput>/images/facebooksmall2.png" border="0" width="22" /></a>&nbsp;&nbsp;<a href="http://twitter.com/#!/Jet_Charters" target="_blank"><img src="<cfoutput>#cdnURL#</cfoutput>/images/twittersmall.png" border="0" width="22" /></a>
+            </td>
+        </tr>
+        <tr>
+            <td align="left" width="790" colspan="2">
+                <table cellpadding="10" bgcolor="#cccccc" width="790">
+                    <tbody>
+                        <tr>
+                            <td align="left" width="790">
+                                <table cellpadding="10" width="780">
+                                    <tbody>
+                                        <tr>
+                                            <td bgcolor="#ffffff">
+                                                <font size="2" face="georgia">
+                                                    <table>
+                                                        <tr>
+                                                            <td>
+                                                                <img usemap="##Map" src="{{ mailer.headerImage }}" border="0" />
+                                                                <map name="Map" id="Map">
+                                                                    <area shape="rect" coords="0,0,799,310" href="{{ mailer.topLink }}" />
+                                                                    <area shape="rect" coords="0,311,849,519" href="{{ mailer.bottomLink }}" />
+                                                                </map>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <font size="2" face="georgia">
+                                                                    {{ mailer.mailerBody }}
+                                                                    <a href="{{ mailer.topLink }}" target="_blank">Read More</a>
+                                                                </font>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <img src="http://www.jetcharters.com/bmt.cfm?mid=#getMailer.ID#&uid=#session.unsubemail#" />
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+
+                                                </font>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td align="center" colspan="2">
+                <font size="2" face="Arial, Helvetica, sans-serif"><a href="http://www.jetcharters.com/" style="text-decoration: none;">Home</a> | <a href="http://www.jetcharters.com/private-jets/" style="text-decoration: none;">Aircraft for Charter</a> | <a href="http://www.jetcharters.com/membership/" style="text-decoration: none;">Jet Membership</a> | <a href="http://www.jetcharters.com/directory/" style="text-decoration: none;">Airport Directory</a> | <a href="http://www.jetcharters.com/sales/" style="text-decoration: none;">Aircraft Sales</a>
+                </font>
+                <br />
+                <font size="1" face="Arial, Helvetica, sans-serif">Copyright 2012 <a href="http://www.jetcharters.com">JetCharters.com</a> All Rights Reserved</font>
+            </td>
+        </tr>
+    </tbody>
+</table>

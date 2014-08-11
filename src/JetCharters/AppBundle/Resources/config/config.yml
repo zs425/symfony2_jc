@@ -1,0 +1,98 @@
+
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: JetCharters\AppBundle\Entity\User
+    service:
+        user_manager: pugx_user_manager
+    # registration:
+    #     form:
+    #         type: jetcharters_user_registration
+
+pugx_multi_user:
+    users:
+        operator:
+            entity:
+                class: JetCharters\AppBundle\Entity\OperatorUser
+            registration:
+                form:
+                    type: JetCharters\AppBundle\Form\RegistrationOperatorType
+                template: JetChartersAppBundle:Registration:operator.form.html.twig
+        administrator:
+            entity:
+                class: JetCharters\AppBundle\Entity\Administrator
+            registration:
+                form:
+                    type: JetCharters\AppBundle\Form\RegistrationAdministratorType
+                template: JetChartersAppBundle:Registration:administrator.form.html.twig
+        siteuser:
+            entity:
+                class: JetCharters\AppBundle\Entity\SiteUser
+            registration:
+                form:
+                    type: JetCharters\AppBundle\Form\RegistrationSiteUserType
+                template: JetChartersAppBundle:Registration:siteuser.form.html.twig
+
+
+
+knp_gaufrette:
+    stream_wrapper: ~
+
+    adapters:
+        doc_adapter:
+            local:
+                directory: %kernel.root_dir%/../web/uploads/docs
+        local_video_adapter:
+            local:
+                directory: %kernel.root_dir%/../web/uploads/videos
+        vzaar_video_adapter:
+            service:
+                id: vzaar_adapter
+
+    filesystems:
+        video_fs:
+            adapter:    vzaar_video_adapter
+        doc_fs:
+            adapter:    doc_adapter
+
+vich_uploader:
+    db_driver: orm
+    gaufrette: true
+    storage:   vich_uploader.storage.gaufrette
+    mappings:
+        images:
+            uri_prefix:         /uploads/images
+            upload_destination: %kernel.root_dir%/../web/uploads/images
+            delete_on_remove: true
+            delete_on_update: true
+            namer: vich_uploader.namer_uniqid
+        operator:
+            uri_prefix:         /uploads/operator
+            upload_destination: %kernel.root_dir%/../web/uploads/operator
+            delete_on_remove: true
+            delete_on_update: true
+            namer: vich_uploader.namer_uniqid
+        aircraft:
+            uri_prefix:         /uploads/aircraft
+            upload_destination: %kernel.root_dir%/../web/uploads/aircraft
+            delete_on_remove: true
+            delete_on_update: true
+            namer: vich_uploader.namer_uniqid
+        charter:
+            uri_prefix:         /uploads/charter
+            upload_destination: %kernel.root_dir%/../web/uploads/charter
+            delete_on_remove: true
+            delete_on_update: true
+            namer: vich_uploader.namer_uniqid
+        videos:
+            # uri_prefix:         ~
+            upload_destination: video_fs
+            delete_on_remove: true
+            delete_on_update: true
+            namer: vzaar_adapter
+        specsheets:
+            # uri_prefix:         ~
+            upload_destination: doc_fs
+            delete_on_remove: true
+            delete_on_update: true
+            namer: vich_uploader.namer_uniqid

@@ -1,0 +1,35 @@
+parameters:
+    vzaar_adapter.class: JetCharters\AppBundle\Service\VzaarGaufretteAdapter
+    twig.extension.class: JetCharters\AppBundle\Twig\LocaleExtension
+    vzaar_helper.class: JetCharters\AppBundle\Service\VzaarHelper
+    vzaar_adapter.token: xhAbRmVfuHlLhwE1NPAiEvGXuepFE8J0jpiaNG8
+    vzaar_adapter.secret: jetcharters
+    form.type.datePicker.class: JetCharters\AppBundle\Form\Type\DatePickerType
+    form.type.autoSelect.class: JetCharters\AppBundle\Form\Type\AutoSelectType
+services:
+    vzaar_adapter:
+        class: "%vzaar_adapter.class%"
+        arguments: ["%vzaar_adapter.token%", "%vzaar_adapter.secret%"]
+    twig.extension:
+        class: "%twig.extension.class%"
+        arguments: [ @service_container ]
+        tags:
+            - { name: twig.extension  }
+    vzaar_helper:
+        class: "%vzaar_helper.class%"
+        arguments:
+            - @vich_uploader.templating.helper.uploader_helper
+            - @knp_gaufrette.filesystem_map
+    form.type.datePicker:
+        class: "%form.type.datePicker.class%"
+        tags:
+            - { name: form.type, alias: datePicker  }
+    form.type.autoSelect:
+        class: "%form.type.autoSelect.class%"
+        tags:
+            - { name: form.type, alias: autoSelect  }
+    login_listener:
+        class: 'JetCharters\AppBundle\EventListener\SecurityListener'
+        arguments: [@router, '@security.context', @event_dispatcher]
+        tags:
+            - { name: 'kernel.event_listener', event: 'security.interactive_login' }

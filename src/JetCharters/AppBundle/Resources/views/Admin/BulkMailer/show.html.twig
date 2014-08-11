@@ -1,0 +1,56 @@
+{% extends 'JetChartersAppBundle:Admin:base.html.twig' %}
+
+{% block content %}
+    <h1>BulkMailer</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>List</th>
+                <td>{{ entity.list }}</td>
+            </tr>
+            <tr>
+                <th>Sendtime</th>
+                <td>{{ entity.sendTime|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Subject</th>
+                <td>{{ entity.subject }}</td>
+            </tr>
+            <tr>
+                <th>Headerimagename</th>
+                <td>{{ entity.headerImageName }}</td>
+            </tr>
+            <tr>
+                <th>Toplink</th>
+                <td>{{ entity.topLink }}</td>
+            </tr>
+            <tr>
+                <th>Bottomlink</th>
+                <td>{{ entity.bottomLink }}</td>
+            </tr>
+            <tr>
+                <th>Mailerbody</th>
+                <td>{{ entity.mailerBody }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('admin_bulkmailer') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('admin_bulkmailer_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

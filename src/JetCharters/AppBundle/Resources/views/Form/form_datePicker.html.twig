@@ -1,0 +1,49 @@
+
+{% block datePicker_widget %}
+    {% spaceless %}
+	{% set type = type|default('text') %}
+	{% set attr = attr|merge({'class': (attr.class|default('') ~ ' form-control')|trim}) %}
+	{%set defaultClass = "" %}
+	{%- for attrname, attrvalue in attr -%}
+	    {%if attrname == 'class' %}
+		    {%set defaultClass = attrvalue %}
+	    {%endif%}
+	{%- endfor -%}
+	
+	{%set value  = value|date("m/d/Y g:ia") %}
+	
+	{%set dateTimeArray =  value|split(' ') %}
+	<div id="datetimecal">
+		<div class="col-sm-4">
+			  <input placeholder="{%trans%}mm/dd/yyyy{%endtrans%}" type="{{ type }}" {% if value is not empty %}value="{{ dateTimeArray[0] }}" {% endif %} class="date {{defaultClass}}" id="{{id}}_caldate">
+		</div>
+		<div class="col-sm-2">
+			<input placeholder="{%trans%}hour{%endtrans%}" type="{{ type }}" {% if value is not empty %}value="{{ dateTimeArray[1] }}" {% endif %}  class="time {{defaultClass}}" id="{{id}}_caltime">
+		</div>
+		<div style="display:none;">
+			<input type="{{ type }}"  {% if value is not empty %}value="{{ value }}" {% endif %} {{ block('widget_datetime_attributes') }} >
+		</div>
+	</div>
+    {% endspaceless %}
+{% endblock datePicker_widget %}
+
+{% block widget_datetime_attributes %}
+{% spaceless %}
+    id="{{ id }}" name="{{ full_name }}"
+    {%- if read_only %} readonly="readonly"{% endif -%}
+    {%- if disabled %} disabled="disabled"{% endif -%}
+    {%- if required %} required="required"{% endif -%}
+    {%- for attrname, attrvalue in attr -%}
+        {{- " " -}}
+        {%- if attrname in ['placeholder', 'title'] -%}
+            {{- attrname }}="{{ attrvalue|trans({}, translation_domain) }}"
+	{%elseif attrname == 'class' %}
+	
+        {%- elseif attrvalue is sameas(true) -%}
+            {{- attrname }}="{{ attrname }}"
+        {%- elseif attrvalue is not sameas(false) -%}
+            {{- attrname }}="{{ attrvalue }}"
+        {%- endif -%}
+    {%- endfor -%}
+{% endspaceless %}
+{% endblock widget_datetime_attributes %}

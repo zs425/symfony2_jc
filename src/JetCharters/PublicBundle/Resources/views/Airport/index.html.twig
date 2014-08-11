@@ -1,0 +1,56 @@
+{% extends 'JetChartersPublicBundle::base.html.twig' %}
+
+{% block title %}Jet Charter Airport Directory and Hotels Directory{% endblock %}
+
+{% block content %}
+		
+<section class="intro-02">
+    <div class="container">
+	<div class="airplane-details row ie-fix">
+	    <header class="headline airport-bottom-margin"><h2>AIRPORT DIRECTORY</h2></header>
+	    <div class="info airport-paragraph">
+		    <p>With thousands of airports in the world to arrive at, we at Jet Charter Media understand it can be difficult to find the airport information you may need. We can help you find that with our Airport Directory. We even have nearby hotel information and airport maps. Browse around in our Airport Directory to find and US Airports or International Airports.</p>	
+	    </div>
+	    <h3>Choose your location from our Airport Directory listed below...</h3>
+	    <br>
+	    <div class="row">
+		    <div class="pull-left col-md-6">
+			<table width="100%" border="1" cellpadding="1" cellspaing="0" class="airport-table">
+			    <tr>
+				    <th colspan="2">US Airport Directory</th>
+			    </tr>
+			    <tr>
+				    <td class="inner-head">State</td>
+				    <td class="inner-head">Airport Count</td>
+			    </tr>
+			    {% for airport in airportsByState %}
+			    <tr>
+				    <td class="inner-td"><a href="{{ path('public_airports_list', {'location': airport.state|cleanurl }) }}">{{ airport.state|formalText }} Airports</a></td>
+				    <td class="inner-td">{{ airport.countAirports }}</td>
+			    </tr>
+			    {% endfor %}
+			</table>
+		    </div>
+		    <div class="pull-right col-md-6">
+			<table width="100%" border="1" cellpadding="1" cellspaing="0" class="airport-table">
+			    <tr>
+				    <th colspan="2">International Airport Directory</th>
+			    </tr>
+			    <tr>
+				    <td class="inner-head">Country</td>
+				    <td class="inner-head">Airport Count</td>
+			    </tr>
+			    {% for airport in airportsByCountry %}
+			    <tr>
+				    <td class="inner-td"><a href="{{ path('public_airports_list', {'location': airport.full|cleanurl }) }}">{{ airport.full|formalText }} Airports</a></td>
+				    <td class="inner-td">{{ airport.airportCount }}</td>
+			    </tr>
+			    {% endfor %}
+			</table>
+		    </div>
+	    </div>
+	    <div>&nbsp;</div>
+	</div>
+    </div>
+</section>
+{% endblock %}

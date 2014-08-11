@@ -1,0 +1,7 @@
+{% extends 'JetChartersAppBundle:Admin:form_showcase.html.twig' %}
+
+{% form_theme form 'JetChartersAppBundle:Form:cp_form_theme.html.twig' %}
+
+{% block content %}
+	{{ include('JetChartersAppBundle::Admin/BlogPost/_form.html.twig', {'form' : form, 'title': "Create Blog Post" }) }}
+{% endblock %}

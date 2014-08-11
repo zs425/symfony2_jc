@@ -1,0 +1,25 @@
+{% extends 'JetChartersAppBundle:Operator:form_showcase.html.twig' %}
+
+{% block title %}+ Contact Information{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+
+	<script>
+	$(function() {
+
+		// TODO: Do verify email logic and conditionally show button
+
+		$("#jetcharters_appbundle_contact_contactEmail")
+		.css({"width":"50%", "margin-right":"1rem"})
+		.after('<a class="btn btn-primary" href="#">Verify Email</a>');
+	});
+	</script>
+
+{% endblock %}
+
+{% block the_form %}
+	{% form_theme edit_form 'JetChartersAppBundle:Form:cp_form_theme.html.twig' %}
+	{{ form(edit_form) }}
+
+{% endblock %}

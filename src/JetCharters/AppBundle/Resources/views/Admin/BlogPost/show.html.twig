@@ -1,0 +1,52 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>BlogPost</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Posttitle</th>
+                <td>{{ entity.postTitle }}</td>
+            </tr>
+            <tr>
+                <th>Postbody</th>
+                <td>{{ entity.postBody }}</td>
+            </tr>
+            <tr>
+                <th>Postcategory</th>
+                <td>{{ entity.postCategory }}</td>
+            </tr>
+            <tr>
+                <th>Postslug</th>
+                <td>{{ entity.postSlug }}</td>
+            </tr>
+            <tr>
+                <th>Createdon</th>
+                <td>{{ entity.createdOn|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Updatedon</th>
+                <td>{{ entity.updatedOn|date('Y-m-d H:i:s') }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('admin_blog_post') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('admin_blog_post_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

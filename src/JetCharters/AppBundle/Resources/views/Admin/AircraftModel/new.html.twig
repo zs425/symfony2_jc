@@ -1,0 +1,16 @@
+{% extends 'JetChartersAppBundle:Admin:form_showcase.html.twig' %}
+
+{% block title %}+ New Aircraft Model{% endblock %}
+
+{% block the_form %}
+	{% form_theme new_form 'JetChartersAppBundle:Form:cp_form_theme.html.twig' %}
+	{{ form(new_form) }}
+
+{% endblock %}
+
+{% block aside %}
+<h4>Upload Images:</h4>
+<p>
+You must save the form before you can upload images.
+</p>
+{% endblock %}

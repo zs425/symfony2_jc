@@ -1,0 +1,23 @@
+{% extends 'JetChartersAppBundle:Admin:form_showcase.html.twig' %}
+
+{% block title %}+ Edit Aircraft{% endblock %}
+
+{% block the_form %}
+	{% form_theme edit_form 'JetChartersAppBundle:Form:cp_form_theme.html.twig' %}
+	{{ form(edit_form) }}
+	{{ form(delete_form) }}
+
+{% endblock %}
+
+{% block aside %}
+<h4>Upload Images:</h4>
+<p>
+<form 	action="{{path('admin_aircraft_upload_image', {"id": entity.id})}}" class="dropzone" id="dropzone_upload"
+		data-imagesurl="{{path('admin_aircraft_get_images', {"id": entity.id})}}"
+		data-deleteurl="{{path('admin_aircraft_delete_image')}}">
+  <div class="fallback">
+    <input name="file" type="file" multiple />
+  </div>
+</form>
+</p>
+{% endblock %}

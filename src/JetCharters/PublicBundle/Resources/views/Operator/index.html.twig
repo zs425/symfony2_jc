@@ -1,0 +1,99 @@
+{% extends 'JetChartersPublicBundle::base.html.twig' %}
+
+{% block content %}
+    <div class="head-area parallax-bg">
+        <h1>Complete Form &amp; Select Aircraft to Recieve Quotes</h1>
+    </div><!-- / head-section -->
+    <div class="select-aicraft type-02 container">
+    <form action="#">
+    {% for leg in results %}
+    <div class="info-aircraft">
+        <div class="check">
+            <input id="lbl-007" type="checkbox">
+            <label for="lbl-007"><span>select</span></label>
+        </div><!-- / check-col -->
+        <div class="img-holder">
+            {% if leg.aircraft.images|length > 0 %}
+                <img src="{{ asset('uploads/images/' ~ leg.aircraft.images.first.imagename) }}" alt="" width="251" height="168" >
+                <span class="mask-01">
+							<a href="{{ asset('uploads/images/' ~ leg.aircraft.images.first.imagename) }}" data-toggle="lightbox" data-parent=".select-aircraft" data-gallery="multiimages" data-title="{{ leg.aircraft.name }}" data-footer="Get Quote: {{ leg.aircraft.company.contactphone }}">gallery</a>
+						</span>
+            {% else %}
+                <img src="{{ asset('bundles/jetlegspublic/images/image-not-found.jpg') }}" alt="" width="251" height="168" >
+            {% endif %}
+        </div>
+        <div class="holder">
+            <header class="heading">
+                <strong class="title"><a href="aircraft.html">{{ leg.aircraft.model.name }}</a></strong>
+                <ul class="info">
+                    <li>Seats {{ leg.aircraft.seats }}</li>
+                    {% if leg.aircraft.hidetailnumber == false %}
+                    <li>Tail # <a href="#">{{ leg.aircraft.tailnumber }}</a></li>
+                    {% endif %}
+                </ul>
+                <a data-toggle="modal" data-target="#add-favorite" href="#" class="add-favorite"><span>Add</span> Favorite<strong> !</strong></a>
+            </header>
+            <div class="frame">
+                <ul class="list-info list-info-big">
+                    <li>
+                        <a href="operator-profile.html" class="tooltip-link" data-placement="top" title="{{ leg.operator.contactphonenumber }}">
+                            <img src="{{ asset('bundles/jetcharterspublic/images/img-001.png') }}" alt="" >
+                            {{ leg.operator.name }}
+                            <em>{{ leg.operator.contactphonenumber }}</em>
+                        </a>
+                    </li>
+                    <li>
+                        <img src="{{ asset('bundles/jetcharterspublic/images/img-005.png') }}" alt="" >
+                        <span>{{ leg.fromdate|date("m/d/Y") }}</span> &raquo; <span>{{ leg.todate|date("m/d/Y") }}</span>
+                    </li>
+                    <li>
+									<span data-toggle="modal" data-target="#contact-us" class="contact">
+										<img src="{{ asset('bundles/jetcharterspublic/images/ico08.png') }}" alt="" >
+										<span>Contact</span>
+									</span>
+                    </li>
+                    <li>
+
+										<img src="{{ asset('bundles/jetcharterspublic/images/ico-001.png') }}" alt="" >
+										<a href="#">
+                                            <span data-toggle="modal" data-target="#location" class="tooltip-link" data-placement="top" title="{{ leg.origin.closestcitydistancemiles }} Miles From {{ leg.origin.closestcity }}">{{ leg.origin.city }}, {{ leg.origin.state }}</span>
+                                        </a> &raquo;
+                                        <a href="#">
+                                            <span data-toggle="modal" data-target="#location" class="tooltip-link" data-placement="top" title="{{ leg.destination.closestcitydistancemiles }} Miles From {{ leg.destination.closestcity }}">{{ leg.destination.city }}, {{ leg.destination.state }}</span>
+                                        </a>
+                    </li>
+                </ul><!-- / list-info -->
+                <a href="#" class="phone visible-xs"></a>
+                <img class="custom-logo" src="{{ asset('bundles/jetcharterspublic/images/img18.png') }}" alt="image">
+            </div>
+        </div>
+    </div><!-- / info-aircraft -->
+    {% endfor %}
+    </form>
+    </div><!-- / select-aicraft -->
+{% endblock %}
+
+{% block modals %}
+<div class="modal fade" id="data-form">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h2 class="modal-title">Get Quote</h2>
+            </div>
+            <div class="modal-body">
+                <form action="#">
+                    <input class="form-control" type="text" placeholder="First Name" />
+                    <input class="form-control" type="text" placeholder="Last Name" />
+                    <input class="form-control" type="number" placeholder="Phone" />
+                    <input class="form-control" type="email" placeholder="Email" />
+                    <textarea class="form-control" cols="1" rows="1">Comments</textarea>
+                    <div class="btn-holder">
+                        <button class="btn btn-info">Get Quote</button>
+                    </div>
+                </form>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+{% endblock %}

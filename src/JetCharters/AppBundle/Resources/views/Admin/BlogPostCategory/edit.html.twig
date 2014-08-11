@@ -1,0 +1,7 @@
+{% extends 'JetChartersAppBundle:Admin:form_showcase.html.twig' %}
+
+{% form_theme edit_form 'JetChartersAppBundle:Form:cp_form_theme.html.twig' %}
+
+{% block content %}
+	{{ include('JetChartersAppBundle::Admin/BlogPostCategory/_form.html.twig', {'form' : edit_form, 'title': "Edit Category" }) }}
+{% endblock %}

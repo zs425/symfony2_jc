@@ -1,0 +1,12 @@
+#sidebar-nav {
+   position: relative;
+  width: 215px;
+}
+
+#sidebar-nav #dashboard-menu .pointer .arrow, #sidebar-nav #dashboard-menu .pointer .arrow_border {
+	left:4px;
+}
+
+.btn-block {
+	 display:block;
+}

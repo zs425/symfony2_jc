@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html class="login-bg">
+<head>
+    <title>Detail Admin - Sign in</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- bootstrap -->
+    <link href="{{ asset('bundles/jetchartersapp/cp_theme/css/bootstrap/bootstrap.css') }}" rel="stylesheet" />
+    <link href="{{ asset('bundles/jetchartersapp/cp_theme/css/bootstrap/bootstrap-overrides.css') }}" type="text/css" rel="stylesheet" />
+
+    <!-- global styles -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/jetchartersapp/cp_theme/css/compiled/layout.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/jetchartersapp/cp_theme/css/compiled/elements.css') }}" />
+
+    <!-- libraries -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/jetchartersapp/cp_theme/css/lib/font-awesome.css') }}" />
+
+    <!-- this page specific styles -->
+    <link rel="stylesheet" href="{{ asset('bundles/jetchartersapp/cp_theme/css/compiled/signin.css') }}" type="text/css" media="screen" />
+
+    <!-- open sans font -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css' />
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+  <div class="row-fluid login-wrapper">
+    <a href="index.html">
+        <img class="logo" src="{{ asset('bundles/jetchartersapp/cp_theme/img/logo-white.png') }}">
+    </a>
+
+    <div class="span4 box">
+        <div class="content-wrap">
+            <h6>Log in</h6>
+
+            {% trans_default_domain 'FOSUserBundle' %}
+
+            {% block fos_user_content %}
+            {% if error %}
+                <div>{{ error|trans }}</div>
+            {% endif %}
+
+            <form action="{{ path("fos_user_security_check") }}" method="post">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+
+                <input class="span12" placeholder="Username" type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
+                <input class="span12" placeholder="Your password" type="password" id="password" name="_password" required="required" />
+                <a href="#forgotPasswordModal" data-toggle="modal" class="forgot">Forgot password?</a>
+                <div class="remember">
+                    <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+                    <label for="remember_me">Remember Me</label>
+                </div>
+                <input class="btn-glow primary login" type="submit" id="_submit" name="_submit" value="Log in" />
+            </form>
+            {% endblock fos_user_content %}
+
+        </div>
+    </div>
+</div>
+
+    <!-- scripts -->
+    {% block javascripts %}
+        {% javascripts
+            '@JetChartersAppBundle/Resources/public/js/jquery.min.js'
+            '@JetChartersAppBundle/Resources/public/cp_theme/js/global/bootstrap.min.js'
+            '@JetChartersAppBundle/Resources/public/cp_theme/js/global/jquery-ui-1.10.2.custom.min.js'
+            '@JetChartersAppBundle/Resources/public/cp_theme/js/global/theme.js'
+        %}
+            <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+    {% endblock %}
+
+<div class="modal hide fade" id="forgotPasswordModal">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">X</button>
+        <h3>Forgot Your Password?</h3>
+    </div>
+    <div class="modal-body">
+        {{ render(controller('FOSUserBundle:Resetting:request')) }}
+    </div>
+    <div class="modal-footer">
+        <a href="##" class="btn btn-primary" data-dismiss="modal">Close</a>
+    </div>
+</div>
+</body>
+</html>

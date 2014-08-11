@@ -1,0 +1,129 @@
+<div class="preference ie-fix">
+    <form action="#">
+        <header class="title clearfix">
+            <strong>Search Preferences</strong>
+            <strong class="hidden-xs">Itinerary Details</strong>
+            <a href="#" class="close">close</a>
+        </header>
+        <div class="holder clearfix">
+            <div class="two-columns">
+                <div class="col-01">
+                    <strong class="ttl">Search Radius</strong>
+                    <div class="block">
+                        <select title="150 Miles" class="form-control">
+                            <option value="1">1</option>
+                            <option value="1">2</option>
+                            <option value="1">3</option>
+                            <option value="1">4</option>
+                        </select>
+                    </div><!-- / block -->
+                    <strong class="ttl">Aircraft By Type</strong>
+                    <ul class="check-list">
+                        <li>
+                            <input id="lbl-001" type="checkbox" checked="checked">
+                            <label for="lbl-001">Helicopter</label>
+                        </li>
+                        <li>
+                            <input id="lbl-002" type="checkbox" checked="checked">
+                            <label for="lbl-002">Turbo-Prop</label>
+                        </li>
+                        <li>
+                            <input id="lbl-003" type="checkbox" checked="checked">
+                            <label for="lbl-003">Light Jets</label>
+                        </li>
+                        <li>
+                            <input id="lbl-004" type="checkbox" checked="checked">
+                            <label for="lbl-004">Medium Jets</label>
+                        </li>
+                        <li>
+                            <input id="lbl-005" type="checkbox" checked="checked">
+                            <label for="lbl-005">Medium Jets</label>
+                        </li>
+                        <li>
+                            <input id="lbl-006" type="checkbox" checked="checked">
+                            <label for="lbl-006">Large Jets</label>
+                        </li>
+                    </ul><!-- / check-list -->
+                </div><!-- / col-01 -->
+                <div class="col-02">
+                    <strong class="ttl">Sort By</strong>
+                    <select title="Preferred Aircraft" class="form-control">
+                        <option value="1">1</option>
+                        <option value="1">2</option>
+                        <option value="1">3</option>
+                        <option value="1">4</option>
+                    </select>
+                    <select title="Aircraft Model" class="form-control">
+                        <option value="1">1</option>
+                        <option value="1">2</option>
+                        <option value="1">3</option>
+                        <option value="1">4</option>
+                    </select>
+                    <select title="OperatorUser" class="form-control">
+                        <option value="1">1</option>
+                        <option value="1">2</option>
+                        <option value="1">3</option>
+                        <option value="1">4</option>
+                    </select>
+                    <select title="Safety Rating" class="form-control" name="safety-rating" id="safety-rating">
+                        <option value="all">All</option>
+                        <option value="argus-platinum">ARGUS Platinum</option>
+                        <option value="argus-gold-plus">ARGUS Gold +</option>
+                        <option value="argus-gold">ARGUS Gold</option>
+                    </select>
+                </div><!-- / col-02 -->
+            </div><!-- / two-columns -->
+            <div class="info-box search-form">
+                <strong class="sub-title visible-xs">intinerary Details</strong>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <select title="Trip Type" class="form-control" name="trip-type" id="trip-type">
+                            <option value="round-trip">Round Trip</option>
+                            <option value="one-way">One-Way</option>
+                            <option value="multi-leg">Multi-Leg</option>
+                        </select>
+                    </div>
+                    <div class="col-xs-6">
+                        <select title="Passengers" class="form-control">
+                            {% for p in 1..15 %}
+                            <option value="{{ p }}">{{ p }}</option>
+                            {% endfor %}
+                            <option value="16">16+</option>
+                        </select>
+                    </div>
+                </div><!-- / row -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <input class="form-control" type="text" placeholder="Departure" />
+                    </div>
+                </div><!-- / row -->
+                <div class="row">
+                    <div class="col-sm-6 datepicker-holder">
+                        <span class="ico-time"></span>
+                        <input type="text" class="form-control time" placeholder="Time">
+                    </div>
+                    <div class="col-sm-6 datepicker-holder">
+                        <input type="text" class="form-control datepicker" placeholder="Date" id="from">
+                    </div>
+                </div><!-- / row -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <input class="form-control" type="text" placeholder="Destination" />
+                    </div>
+                </div><!-- / row -->
+                <div class="row">
+                    <div class="col-sm-6 datepicker-holder">
+                        <span class="ico-time"></span>
+                        <input type="text" class="form-control time" placeholder="Time">
+                    </div>
+                    <div class="col-sm-6 datepicker-holder">
+                        <input type="text" class="form-control datepicker" placeholder="Date" id="to">
+                    </div>
+                </div><!-- / row -->
+                <div class="btn-holder clearfix">
+                    <button class="btn btn-info">Update</button>
+                </div>
+            </div><!-- / search-form -->
+        </div><!-- / row -->
+    </form>
+</div><!-- / preference -->

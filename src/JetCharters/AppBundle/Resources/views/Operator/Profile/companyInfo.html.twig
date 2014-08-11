@@ -1,0 +1,41 @@
+{% extends 'JetChartersAppBundle:Operator:form_showcase.html.twig' %}
+
+{% block title %}+ Operator Information{% endblock %}
+
+{% block the_form %}
+	{% form_theme edit_form 'JetChartersAppBundle:Form:cp_form_theme.html.twig' %}
+
+  <ul class="nav nav-tabs" id="tabs">
+    <li class="active"><a href="#info" data-toggle="tab">Info</a></li>
+    <li><a href="#logo" data-toggle="tab">Logo</a></li>
+    <li><a href="#video" data-toggle="tab">Video</a></li>
+    <li><a href="#social" data-toggle="tab">Social</a></li>
+    <li><a href="#login" data-toggle="tab">Change Password</a></li>
+    <li><a href="#callrecording" data-toggle="tab">Call Recording</a></li>
+    <li><a href="#salesforce" data-toggle="tab">Salesforce.com</a></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane active" id="info">
+    	{{ form(edit_form) }}
+    </div>
+    <div class="tab-pane" id="logo">
+		{{ render(controller('JetChartersAppBundle:Operator/Profile:companyLogo')) }}
+    </div>
+    <div class="tab-pane" id="video">
+		{{ render(controller('JetChartersAppBundle:Operator/Profile:companyVideo')) }}
+    </div>
+    <div class="tab-pane" id="social">
+		{{ render(controller('JetChartersAppBundle:Operator/Profile:social')) }}
+    </div>
+    <div class="tab-pane" id="login">
+    	{{ render(controller('FOSUserBundle:ChangePassword:changePassword')) }}
+    </div>
+    <div class="tab-pane" id="callrecording">
+    	{{ render(controller('JetChartersAppBundle:Operator/Profile:callRecording')) }}
+    </div>
+    <div class="tab-pane" id="salesforce">
+    	{{ render(controller('JetChartersAppBundle:Operator/Profile:salesforce')) }}
+    </div>
+</div>
+
+{% endblock %}

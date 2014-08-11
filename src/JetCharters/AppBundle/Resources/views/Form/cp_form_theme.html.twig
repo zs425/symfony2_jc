@@ -1,0 +1,148 @@
+{% block form_widget_simple %}
+{% spaceless %}
+    {% set type = type|default('text') %}
+    <input class="span8 inline-input" type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+{% endspaceless %}
+{% endblock form_widget_simple %}
+
+{% block integer_widget %}
+{% spaceless %}
+    {% set type = type|default('number') %}
+            <input class="span4 inline-input" type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+    {% endspaceless %}
+{% endblock integer_widget %}
+
+{% block button_widget %}
+{% spaceless %}
+    {% if label is empty %}
+        {% set label = name|humanize %}
+    {% endif %}
+        <button class="btn-glow primary" type="{{ type|default('button') }}" {{ block('button_attributes') }}>{{ label|trans({}, translation_domain) }}</button>
+    {% endspaceless %}
+{% endblock button_widget %}
+
+
+{% block autoSelect_widget %}
+    {% spaceless %}
+	<div class="ui-select autoCompleteWidget">
+	    {{ block('choice_widget_collapsed') }}
+	</div>
+    {% endspaceless %}
+{% endblock autoSelect_widget %}
+
+
+{% block choice_widget %}
+
+{% spaceless %}
+    {% if expanded %}
+        {{ block('choice_widget_expanded') }}
+    {% else %}
+	<div class="ui-select">
+	    {{ block('choice_widget_collapsed') }}
+	</div>
+    {% endif %}
+
+{% endspaceless %}
+
+{% endblock choice_widget %}
+
+{% block textarea_widget %}
+{% spaceless %}
+    <div class="wysi-column">
+        <textarea class="span10 wysihtml5" rows="5" {{ block('widget_attributes') }}>{{ value }}</textarea>
+    </div>
+{% endspaceless %}
+{% endblock textarea_widget %}
+
+{% block form_label %}
+{% spaceless %}
+    {% if label is not sameas(false) %}
+        {% if not compound %}
+            {% set label_attr = label_attr|merge({'for': id}) %}
+        {% endif %}
+        {% if required %}
+            {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
+        {% endif %}
+        {% if label is empty %}
+            {% set label = name|humanize|title ~ ':' %}
+        {% endif %}
+        <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>{{ label|trans({}, translation_domain) }}</label>
+    {% endif %}
+{% endspaceless %}
+{% endblock form_label %}
+
+{% block form_row %}
+	{% spaceless %}
+	    <div class="field-box">
+		{{ form_label(form) }}
+		{{ form_widget(form) }}
+	    </div>
+	{% endspaceless %}
+{% endblock form_row %}
+
+{% block datePicker_widget %}
+    {% spaceless %}
+	{% set type = type|default('text') %}
+	{% set attr = attr|merge({'class': (attr.class|default('') ~ ' form-control')|trim}) %}
+	{%set defaultClass = "" %}
+	{%- for attrname, attrvalue in attr -%}
+	    {%if attrname == 'class' %}
+		    {%set defaultClass = attrvalue %}
+	    {%endif%}
+	{%- endfor -%}
+
+	{%set value  = value|date("m/d/Y g:ia") %}
+
+	{%set dateTimeArray =  value|split(' ') %}
+	<div id="datetimecal">
+		<div class="span4">
+			  <input placeholder="{%trans%}mm/dd/yyyy{%endtrans%}" type="{{ type }}" {% if value is not empty %}value="{{ dateTimeArray[0] }}" {% endif %} class="date {{defaultClass}}" id="{{id}}_caldate">
+		</div>
+		<div class="span2" >
+			<input placeholder="{%trans%}hour{%endtrans%}" type="{{ type }}" {% if value is not empty %}value="{{ dateTimeArray[1] }}" {% endif %}  class="time {{defaultClass}}" id="{{id}}_caltime">
+		</div>
+		<div style="display:none;">
+			<input type="{{ type }}"  {% if value is not empty %}value="{{ value }}" {% endif %} {{ block('widget_datetime_attributes') }} >
+		</div>
+	</div>
+    {% endspaceless %}
+{% endblock datePicker_widget %}
+
+{% block widget_datetime_attributes %}
+{% spaceless %}
+    id="{{ id }}" name="{{ full_name }}"
+    {%- if read_only %} readonly="readonly"{% endif -%}
+    {%- if disabled %} disabled="disabled"{% endif -%}
+    {%- if required %} required="required"{% endif -%}
+    {%- for attrname, attrvalue in attr -%}
+        {{- " " -}}
+        {%- if attrname in ['placeholder', 'title'] -%}
+            {{- attrname }}="{{ attrvalue|trans({}, translation_domain) }}"
+	{%elseif attrname == 'class' %}
+
+        {%- elseif attrvalue is sameas(true) -%}
+            {{- attrname }}="{{ attrname }}"
+        {%- elseif attrvalue is not sameas(false) -%}
+            {{- attrname }}="{{ attrvalue }}"
+        {%- endif -%}
+    {%- endfor -%}
+{% endspaceless %}
+{% endblock widget_datetime_attributes %}
+
+
+{% block date_widget %}
+{% spaceless %}
+    {% if widget == 'single_text' %}
+         {% set type = type|default('text') %}
+        <input class="date" type="text" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+    {% else %}
+        <div {{ block('widget_container_attributes') }}>
+            {{ date_pattern|replace({
+                '{{ year }}':  form_widget(form.year),
+                '{{ month }}': form_widget(form.month),
+                '{{ day }}':   form_widget(form.day),
+            })|raw }}
+        </div>
+    {% endif %}
+{% endspaceless %}
+{% endblock date_widget %}

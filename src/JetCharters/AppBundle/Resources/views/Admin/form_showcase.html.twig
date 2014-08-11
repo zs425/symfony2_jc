@@ -1,0 +1,50 @@
+{% extends 'JetChartersAppBundle:Admin:base.html.twig' %}
+
+{% block page_styles %}
+{{ parent() }}
+<link rel="stylesheet" href="{{ asset('bundles/jetchartersapp/cp_theme/css/compiled/form-showcase.css') }}" type="text/css" media="screen" />
+<link rel="stylesheet" href="{{ asset('bundles/jetchartersapp/cp_theme/css/lib/bootstrap-wysihtml5.css') }}" type="text/css" media="screen" />
+<link rel="stylesheet" href="{{ asset('bundles/jetchartersapp/css/dropzone.css') }}" type="text/css" media="screen" />
+
+{% endblock %}
+
+{% block javascripts %}
+    {{parent()}}
+    {% javascripts
+        '@JetChartersAppBundle/Resources/public/cp_theme/js/select2.min.js'
+        '@JetChartersAppBundle/Resources/public/cp_theme/js/wysihtml5-0.3.0.js'
+        '@JetChartersAppBundle/Resources/public/cp_theme/js/bootstrap-wysihtml5-0.0.2.js'
+        '@JetChartersAppBundle/Resources/public/cp_theme/js/form_showcase.js'
+        '@JetChartersAppBundle/Resources/public/js/dropzone.js'
+        '@JetChartersAppBundle/Resources/public/js/dropzone.custom.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    
+    {% endjavascripts %}
+{% endblock %}
+
+
+{% block content %}
+<div class="container-fluid">
+  <div id="pad-wrapper" class="form-page">
+      <div class="row-fluid form-wrapper">
+            <div class="row-fluid head">
+                <div class="span12">
+                    <h4 style="margin:-20px 0 20px 0;">{% block title %}{% endblock %}</h4>
+
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span8 columns">
+                    {% block the_form %}{% endblock %}
+                </div>
+                <div class="span4 columns"
+                    {% block aside %}{% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+{% endblock %}
